@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glad2Glow · Creator Weekly Update · Jun 24</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a18; font-size: 14px; line-height: 1.7; }
+.page { max-width: 900px; margin: 0 auto; padding: 0 0 40px; }
+
+/* Header */
+.hero { background: #1a1a18; padding: 28px 32px 24px; }
+.hero-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.hero h1 { font-size: 20px; font-weight: 700; color: #fff; }
+.hero p  { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+.hero-badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 600; color: #fff; white-space: nowrap; }
+.hero-kpis { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 20px; }
+.hk { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 12px 14px; }
+.hk-label { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 3px; }
+.hk-val   { font-size: 20px; font-weight: 700; color: #fff; }
+.hk-sub   { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+/* Content area */
+.content { padding: 0 32px; }
+
+/* Section */
+.sec { margin-top: 28px; }
+.sec-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6b67; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.sec-title::after { content:''; flex:1; height:1px; background:#e0dfd8; }
+
+/* Week comparison */
+.week-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.wk { border-radius: 12px; padding: 16px 18px; }
+.wk.old { background: #fafaf8; border: 0.5px solid #e0dfd8; }
+.wk.new { background: #e8f5f0; border: 1.5px solid #1d9e75; }
+.wk-title { font-size: 12px; font-weight: 700; margin-bottom: 10px; }
+.wk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; }
+.wk-item { font-size: 12px; color: #6b6b67; padding: 2px 0; }
+.wk-item strong { color: #1a1a18; }
+.good { color: #0f6e56; } .warn { color: #854f0b; } .bad { color: #a32d2d; }
+
+/* Product table */
+.prod-table { background: #fff; border-radius: 12px; border: 0.5px solid #e0dfd8; overflow: hidden; }
+.pt-row { display: flex; align-items: center; padding: 10px 16px; border-bottom: 0.5px solid #f0efea; gap: 10px; }
+.pt-row:last-child { border-bottom: none; }
+.pt-name { font-size: 13px; font-weight: 600; flex: 1; min-width: 0; }
+.pt-bar-wrap { flex: 1.5; height: 8px; background: #f0efea; border-radius: 4px; overflow: hidden; }
+.pt-bar { height: 100%; border-radius: 4px; }
+.pt-roi { font-size: 13px; font-weight: 700; width: 44px; text-align: right; }
+.pt-orders { font-size: 12px; color: #6b6b67; width: 60px; text-align: right; }
+.pill { display: inline-block; border-radius: 20px; font-size: 10px; font-weight: 700; padding: 1px 7px; }
+.pill-g { background: #e1f5ee; color: #0f6e56; }
+.pill-w { background: #faeeda; color: #854f0b; }
+.pill-b { background: #fcebeb; color: #a32d2d; }
+
+/* Trend chart */
+.chart-box { background: #fff; border-radius: 12px; border: 0.5px solid #e0dfd8; padding: 18px; }
+.legend { display: flex; gap: 14px; font-size: 12px; color: #6b6b67; margin-bottom: 12px; flex-wrap: wrap; }
+.ld { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 4px; }
+
+/* Creative cards */
+.crea-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cc { background: #fff; border-radius: 12px; border: 0.5px solid #e0dfd8; overflow: hidden; display: flex; flex-direction: column; }
+.cc.hot { border-color: #1d9e75; border-width: 1.5px; }
+.cc.new { border-color: #7b4fcf; border-width: 1.5px; }
+.cc.ref { border-color: #e6b800; border-width: 1.5px; background: #fffdf5; }
+.cc-head { padding: 11px 14px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.cc-title { font-size: 12px; font-weight: 600; color: #1a1a18; line-height: 1.5; flex: 1; }
+.cc-badges { display: flex; gap: 4px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+.badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; display: inline-block; }
+.b-hot { background: #e1f5ee; color: #0f6e56; }
+.b-new { background: #f0ebff; color: #7b4fcf; }
+.b-ref { background: #fff3cd; color: #856404; }
+.b-top { background: #1a1a18; color: #fff; }
+.cc-meta { font-size: 11px; color: #6b6b67; padding: 3px 14px 0; }
+.cc-link { font-size: 11px; padding: 4px 14px 0; }
+.cc-link a { color: #185fa5; text-decoration: none; word-break: break-all; }
+.cc-stats { display: flex; flex-wrap: wrap; gap: 5px; padding: 8px 14px 12px; }
+.cs { background: #f5f4f0; border-radius: 4px; padding: 2px 7px; font-size: 11px; color: #6b6b67; }
+.cs strong { color: #1a1a18; }
+.cs.angle { background: #edf4ff; color: #185fa5; }
+.cc-note { background: #fffbea; border-top: 0.5px solid #f5e9a0; padding: 9px 14px; font-size: 12px; color: #6b6b67; line-height: 1.6; flex: 1; }
+.cc-note strong { color: #856404; display: block; margin-bottom: 2px; }
+
+/* Brief box */
+.brief-box { background: #fff; border-radius: 12px; border: 0.5px solid #e0dfd8; overflow: hidden; }
+.brief-row { padding: 14px 18px; border-bottom: 0.5px solid #f0efea; }
+.brief-row:last-child { border-bottom: none; }
+.brief-prod { font-size: 12px; font-weight: 700; color: #1a1a18; margin-bottom: 6px; }
+.brief-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.bc { font-size: 12px; background: #f5f4f0; border-radius: 20px; padding: 4px 12px; color: #1a1a18; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <h1>Glad2Glow · TikTok Shop US</h1>
+      <p>Creator Weekly Update · Jun 6 – Jun 24, 2026</p>
+    </div>
+    <div class="hero-badge">Week 3 Report</div>
+  </div>
+  <div class="hero-kpis">
+    <div class="hk"><div class="hk-label">Total Spend</div><div class="hk-val">$13,868</div><div class="hk-sub" style="color:#4ade80">↑ +$9,430 vs prev week</div></div>
+    <div class="hk"><div class="hk-label">Total Orders</div><div class="hk-val">1,083</div><div class="hk-sub" style="color:#4ade80">↑ +787 orders (+266%)</div></div>
+    <div class="hk"><div class="hk-label">Gross Revenue</div><div class="hk-val">$15,711</div><div class="hk-sub" style="color:#4ade80">↑ +$11,884 (+311%)</div></div>
+    <div class="hk"><div class="hk-label">Overall ROI</div><div class="hk-val" style="color:#4ade80">1.13×</div><div class="hk-sub" style="color:#4ade80">↑ 0.86× → 1.13×</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- Week on Week -->
+<div class="sec">
+  <div class="sec-title">Week-on-Week Performance</div>
+  <div class="week-row">
+    <div class="wk old">
+      <div class="wk-title" style="color:#6b6b67">📅 Before Activity · Jun 6–16</div>
+      <div class="wk-grid">
+        <div class="wk-item">Daily Spend <strong>$403</strong></div>
+        <div class="wk-item">Daily Orders <strong>26.9</strong></div>
+        <div class="wk-item">ROI <strong class="warn">0.86×</strong></div>
+        <div class="wk-item">CPO <strong>$14.99</strong></div>
+      </div>
+    </div>
+    <div class="wk new">
+      <div class="wk-title" style="color:#0f6e56">🚀 Activity Week · Jun 17–24</div>
+      <div class="wk-grid">
+        <div class="wk-item">Daily Spend <strong class="good">$1,188 (+195%)</strong></div>
+        <div class="wk-item">Daily Orders <strong class="good">106 (+294%)</strong></div>
+        <div class="wk-item">ROI <strong class="good">1.20× ✓</strong></div>
+        <div class="wk-item">CPO <strong class="good">$11.21 (↓$3.78)</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Spend & GMV Trend -->
+<div class="sec">
+  <div class="sec-title">Daily Spend & Revenue Trend</div>
+  <div class="chart-box">
+    <div class="legend">
+      <span><span class="ld" style="background:rgba(55,138,221,0.7)"></span>Daily Spend</span>
+      <span><span class="ld" style="background:#1d9e75;border-radius:50%"></span>Daily GMV <span style="font-size:11px">(green dot = ROI ≥ 1.0×)</span></span>
+    </div>
+    <div style="position:relative;height:220px;"><canvas id="trendChart"></canvas></div>
+  </div>
+</div>
+
+<!-- Product ROI -->
+<div class="sec">
+  <div class="sec-title">Product Performance · Full Period</div>
+  <div class="prod-table">
+    <div class="pt-row" style="background:#f5f4f0;font-size:11px;color:#6b6b67;font-weight:700;padding:8px 16px;">
+      <span style="flex:1">PRODUCT</span>
+      <span style="flex:1.5;text-align:center">ROI BAR</span>
+      <span style="width:44px;text-align:right">ROI</span>
+      <span style="width:60px;text-align:right">ORDERS</span>
+    </div>
+    <div class="pt-row"><div class="pt-name">Lip Serum <span class="pill pill-g">1.28×</span></div><div class="pt-bar-wrap"><div class="pt-bar" style="width:85%;background:#1d9e75"></div></div><div class="pt-roi good">1.28×</div><div class="pt-orders">237</div></div>
+    <div class="pt-row"><div class="pt-name">Skin Tint <span class="pill pill-g">1.26×</span></div><div class="pt-bar-wrap"><div class="pt-bar" style="width:84%;background:#1d9e75"></div></div><div class="pt-roi good">1.26×</div><div class="pt-orders">252</div></div>
+    <div class="pt-row"><div class="pt-name">Retinol Moist <span class="pill pill-g">1.18×</span></div><div class="pt-bar-wrap"><div class="pt-bar" style="width:79%;background:#1d9e75"></div></div><div class="pt-roi good">1.18×</div><div class="pt-orders">143</div></div>
+    <div class="pt-row"><div class="pt-name">TWC Powder <span class="pill pill-g">1.13×</span></div><div class="pt-bar-wrap"><div class="pt-bar" style="width:75%;background:#1d9e75"></div></div><div class="pt-roi good">1.13×</div><div class="pt-orders">98</div></div>
+    <div class="pt-row"><div class="pt-name">Mugwort Clay <span class="pill pill-g">1.07×</span></div><div class="pt-bar-wrap"><div class="pt-bar" style="width:71%;background:#1d9e75"></div></div><div class="pt-roi good">1.07×</div><div class="pt-orders">149</div></div>
+    <div class="pt-row"><div class="pt-name">Volcano Clay <span class="pill pill-g">1.02×</span></div><div class="pt-bar-wrap"><div class="pt-bar" style="width:68%;background:#1d9e75"></div></div><div class="pt-roi good">1.02×</div><div class="pt-orders">119</div></div>
+    <div class="pt-row"><div class="pt-name">Loose Powder <span class="pill pill-w">0.75×</span></div><div class="pt-bar-wrap"><div class="pt-bar" style="width:50%;background:#ef9f27"></div></div><div class="pt-roi warn">0.75×</div><div class="pt-orders">76</div></div>
+    <div class="pt-row"><div class="pt-name">Peeling Gel <span class="pill pill-b">0.50×</span></div><div class="pt-bar-wrap"><div class="pt-bar" style="width:33%;background:#e24b4a"></div></div><div class="pt-roi bad">0.50×</div><div class="pt-orders">33</div></div>
+    <div class="pt-row"><div class="pt-name">Deep Pore Clean <span class="pill pill-b">0.45×</span></div><div class="pt-bar-wrap"><div class="pt-bar" style="width:30%;background:#e24b4a"></div></div><div class="pt-roi bad">0.45×</div><div class="pt-orders">18</div></div>
+  </div>
+</div>
+
+<!-- Top 10 Overall -->
+<div class="sec">
+  <div class="sec-title">🏆 Overall Top 10 Creatives · By Revenue</div>
+  <div class="crea-grid">
+
+    <div class="cc hot">
+      <div class="cc-head"><div class="cc-title">"This blurring skin tint is unbelievable!!! It makes my skin look so flawless!"</div><div class="cc-badges"><span class="badge b-top">#1</span><span class="badge b-hot">HP</span></div></div>
+      <div class="cc-meta">Skin Tint · @haimabby</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7647200398364675342" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$881</strong></span><span class="cs">65 orders</span><span class="cs">ROI <strong class="warn">0.86×</strong></span><span class="cs">CVR <strong>3.0%</strong></span><span class="cs angle">😱 Shock reaction</span></div>
+    </div>
+
+    <div class="cc hot">
+      <div class="cc-head"><div class="cc-title">(Silent demo — no caption)</div><div class="cc-badges"><span class="badge b-top">#2</span></div></div>
+      <div class="cc-meta">Mugwort Clay · @samjeffhop</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7650332566695808269" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$824</strong></span><span class="cs">71 orders</span><span class="cs">ROI <strong class="good">1.01×</strong></span><span class="cs">CVR <strong>1.2%</strong></span><span class="cs angle">🎬 Silent product demo</span></div>
+    </div>
+
+    <div class="cc hot">
+      <div class="cc-head"><div class="cc-title">"This completely blurs my skin!! It's unreal!! #glad2glow"</div><div class="cc-badges"><span class="badge b-top">#3</span></div></div>
+      <div class="cc-meta">TWC Powder · @haimabby</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7649817326858161421" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$729</strong></span><span class="cs">53 orders</span><span class="cs">ROI <strong class="warn">0.94×</strong></span><span class="cs">CVR <strong>4.0%</strong></span><span class="cs angle">😱 "Unreal" hook</span></div>
+    </div>
+
+    <div class="cc hot">
+      <div class="cc-head"><div class="cc-title">"like a filter irl 🤩 #settingpowder #brighteningpowder"</div><div class="cc-badges"><span class="badge b-top">#4</span></div></div>
+      <div class="cc-meta">Loose Powder · @_alyssa_lorraine_</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7647214692020047135" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$594</strong></span><span class="cs">43 orders</span><span class="cs">ROI <strong class="warn">0.78×</strong></span><span class="cs">CVR <strong>5.5%</strong></span><span class="cs angle">🪞 Filter-like finish</span></div>
+    </div>
+
+    <div class="cc hot">
+      <div class="cc-head"><div class="cc-title">"I actually have seen a difference in color after using it for 2 weeks 🧚🏽"</div><div class="cc-badges"><span class="badge b-top">#5</span><span class="badge b-hot">HP</span></div></div>
+      <div class="cc-meta">Lip Serum · @evesillusions</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7649004364622826783" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$533</strong></span><span class="cs">42 orders</span><span class="cs">ROI <strong class="good">1.29×</strong></span><span class="cs">CVR <strong>3.2%</strong></span><span class="cs angle">💋 Results over time</span></div>
+    </div>
+
+    <div class="cc hot">
+      <div class="cc-head"><div class="cc-title">"Retinol can seem intimidating, but it doesn't have to be!"</div><div class="cc-badges"><span class="badge b-top">#6</span><span class="badge b-hot">HP</span></div></div>
+      <div class="cc-meta">Retinol Moist · @59andflawless</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7651627099765165342" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$489</strong></span><span class="cs">32 orders</span><span class="cs">ROI <strong class="good">1.98×</strong></span><span class="cs">CVR <strong class="good">8.4%</strong></span><span class="cs angle">📚 Education angle</span></div>
+    </div>
+
+    <div class="cc hot">
+      <div class="cc-head"><div class="cc-title">"The most beautiful blurring skin tint, looks like real poreless skin!"</div><div class="cc-badges"><span class="badge b-top">#7</span><span class="badge b-hot">HP</span></div></div>
+      <div class="cc-meta">Skin Tint · @lis_beautytips</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7647644850778574110" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$405</strong></span><span class="cs">30 orders</span><span class="cs">ROI <strong class="good">1.04×</strong></span><span class="cs">CVR <strong>4.6%</strong></span><span class="cs angle">🪞 Poreless finish</span></div>
+    </div>
+
+    <div class="cc hot">
+      <div class="cc-head"><div class="cc-title">"@Glad2Glow ☀️☀️" (sensory short)</div><div class="cc-badges"><span class="badge b-top">#8</span><span class="badge b-new">NEW</span></div></div>
+      <div class="cc-meta">Retinol Moist · @emiah.f</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7649219690744630559" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$378</strong></span><span class="cs">25 orders</span><span class="cs">ROI <strong class="good">1.66×</strong></span><span class="cs">2s <strong class="good">55.6%</strong></span><span class="cs angle">🧈 Sensory texture</span></div>
+    </div>
+
+    <div class="cc hot">
+      <div class="cc-head"><div class="cc-title">"TRYING JELLY LIPS SERUM?! 😱😱 #lipjelly"</div><div class="cc-badges"><span class="badge b-top">#9</span><span class="badge b-hot">HP</span></div></div>
+      <div class="cc-meta">Lip Serum · @seananthonyv</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7647753988955311381" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$356</strong></span><span class="cs">27 orders</span><span class="cs">ROI <strong class="warn">0.99×</strong></span><span class="cs">CVR <strong class="good">7.0%</strong></span><span class="cs angle">😱 Reaction hook</span></div>
+    </div>
+
+    <div class="cc hot">
+      <div class="cc-head"><div class="cc-title">"This feel like butter 🧈 @Glad2Glow #retinol"</div><div class="cc-badges"><span class="badge b-top">#10</span><span class="badge b-new">NEW</span></div></div>
+      <div class="cc-meta">Retinol Moist · @kimkrecs</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7649383501623479566" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$348</strong></span><span class="cs">23 orders</span><span class="cs">ROI <strong class="warn">0.86×</strong></span><span class="cs">2s <strong class="good">56.1%</strong></span><span class="cs angle">🧈 Sensory texture</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- New This Week -->
+<div class="sec">
+  <div class="sec-title">📈 New Creatives This Week · First-time Converters (Jun 17–24)</div>
+  <div class="crea-grid">
+
+    <div class="cc new">
+      <div class="cc-head"><div class="cc-title">"This stuff is magic… #glad2glow"</div><div class="cc-badges"><span class="badge b-new">NEW</span></div></div>
+      <div class="cc-meta">Volcano Clay · @dlinnn.1</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7653209461573668110" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$128</strong></span><span class="cs">11 orders</span><span class="cs">ROI <strong class="warn">0.65×</strong></span><span class="cs">CVR <strong>1.4%</strong></span><span class="cs angle">✨ Magic / result hook</span></div>
+    </div>
+
+    <div class="cc new">
+      <div class="cc-head"><div class="cc-title">"Skin tint has been the new craze lately! Especially for…"</div><div class="cc-badges"><span class="badge b-new">NEW</span></div></div>
+      <div class="cc-meta">Skin Tint · @protect_the_om</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7653269149052849438" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$54</strong></span><span class="cs">4 orders</span><span class="cs">ROI <strong class="good">1.26×</strong></span><span class="cs">2s <strong class="good">59.0%</strong></span><span class="cs angle">🪞 Trend / social proof</span></div>
+    </div>
+
+    <div class="cc new">
+      <div class="cc-head"><div class="cc-title">"A lippie with a charm!?? Omg. #glad2glow #lipserum"</div><div class="cc-badges"><span class="badge b-new">NEW</span></div></div>
+      <div class="cc-meta">Lip Serum · @malloryalyssa</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7652833948787100941" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$25</strong></span><span class="cs">2 orders</span><span class="cs">ROI <strong class="good">1.13×</strong></span><span class="cs angle">🎀 Charm feature</span></div>
+    </div>
+
+    <div class="cc new">
+      <div class="cc-head"><div class="cc-title">"Lightweight and hydrated! #glad2glow"</div><div class="cc-badges"><span class="badge b-new">NEW</span></div></div>
+      <div class="cc-meta">Lip Serum · @_karina.michelle</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7653243025925131551" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$25</strong></span><span class="cs">2 orders</span><span class="cs">ROI <strong class="good">2.99×</strong></span><span class="cs">CVR <strong class="good">14.3%</strong></span><span class="cs angle">💧 Hydration feel</span></div>
+    </div>
+
+    <div class="cc new">
+      <div class="cc-head"><div class="cc-title">"The perfect lip brightening serum 🤍 #Glad2Glow"</div><div class="cc-badges"><span class="badge b-new">NEW</span></div></div>
+      <div class="cc-meta">Lip Serum · @yannnique</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7654394825373928734" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$25</strong></span><span class="cs">2 orders</span><span class="cs">ROI <strong class="good">4.70×</strong></span><span class="cs angle">✨ Brightening benefit</span></div>
+    </div>
+
+    <div class="cc new">
+      <div class="cc-head"><div class="cc-title">"Glossy lips and cute charms? Say less ✨🎀 @Glad2Glow"</div><div class="cc-badges"><span class="badge b-new">NEW</span></div></div>
+      <div class="cc-meta">Lip Serum · @jennyabroad</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/player/v1/7654451149373803790" target="_blank">▶ Watch video</a></div>
+      <div class="cc-stats"><span class="cs">GMV <strong>$13</strong></span><span class="cs">1 order</span><span class="cs">ROI <strong class="good">48.9×</strong></span><span class="cs angle">🎀 Glossy + charm combo</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Reference Videos -->
+<div class="sec">
+  <div class="sec-title">⭐ Recommended Reference Videos — Learn from These</div>
+  <div style="background:#fff3cd;border-radius:10px;padding:10px 16px;font-size:12px;color:#856404;margin-bottom:12px;">These are <strong>external reference videos</strong> — not G2G ads. Study their angles and brief your creators to make similar content for G2G products.</div>
+  <div class="crea-grid">
+
+    <div class="cc ref">
+      <div class="cc-head"><div class="cc-title">@mk_loveslife3 — Daily life / texture close-up</div><div class="cc-badges"><span class="badge b-ref">⭐ REF</span></div></div>
+      <div class="cc-meta" style="color:#856404">For: Lip Serum</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/@mk_loveslife3/video/7650276018950901006" target="_blank">▶ Watch reference</a></div>
+      <div class="cc-note"><strong>📌 Brief your creators:</strong> Show the application & gloss in a natural "get ready / going out" moment. Texture close-up is key — the jelly-like application is visually satisfying and stops the scroll.</div>
+    </div>
+
+    <div class="cc ref">
+      <div class="cc-head"><div class="cc-title">@bybrookelle — Multi-shade review + charm showcase</div><div class="cc-badges"><span class="badge b-ref">⭐ REF</span></div></div>
+      <div class="cc-meta" style="color:#856404">For: Lip Serum</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/@bybrookelle/video/7641626277832789255" target="_blank">▶ Watch reference</a></div>
+      <div class="cc-note"><strong>📌 Brief your creators:</strong> Show multiple shades side by side + always feature the charm. The charm is our #1 differentiator — make it the hero of the video, not an afterthought.</div>
+    </div>
+
+    <div class="cc ref">
+      <div class="cc-head"><div class="cc-title">@vaselineanz — Clean macro texture + punchy voiceover</div><div class="cc-badges"><span class="badge b-ref">⭐ REF</span></div></div>
+      <div class="cc-meta" style="color:#856404">For: Lip Serum</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/@vaselineanz/video/7637429514485681416" target="_blank">▶ Watch reference</a></div>
+      <div class="cc-note"><strong>📌 Brief your creators:</strong> Extreme close-up of the jelly texture + short punchy hook ("Does this actually brighten your lips?"). Less talking, more showing. Macro = high 2s view rate.</div>
+    </div>
+
+    <div class="cc ref">
+      <div class="cc-head"><div class="cc-title">@rachelmadisoncarlisle — Real skin before/after</div><div class="cc-badges"><span class="badge b-ref">⭐ REF</span></div></div>
+      <div class="cc-meta" style="color:#856404">For: Skin Tint</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/@rachelmadisoncarlisle/video/7650284102418976013" target="_blank">▶ Watch reference</a></div>
+      <div class="cc-note"><strong>📌 Brief your creators:</strong> Bare skin → tinted comparison. Emphasize "this looks like skincare, not makeup." Show real pores before, blurred skin after. Authenticity sells the skin tint.</div>
+    </div>
+
+    <div class="cc ref">
+      <div class="cc-head"><div class="cc-title">@allure_fashion — Skin tint in full GRWM tutorial</div><div class="cc-badges"><span class="badge b-ref">⭐ REF</span></div></div>
+      <div class="cc-meta" style="color:#856404">For: Skin Tint</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/@allure_fashion/video/7650994735905131790" target="_blank">▶ Watch reference</a></div>
+      <div class="cc-note"><strong>📌 Brief your creators:</strong> Don't just do a standalone unboxing — embed the skin tint as the "base hero" in a full get-ready tutorial. Context makes it feel more natural and aspirational.</div>
+    </div>
+
+    <div class="cc ref">
+      <div class="cc-head"><div class="cc-title">@sydneyfaithhh — Authentic tone + real skin showcase</div><div class="cc-badges"><span class="badge b-ref">⭐ REF</span></div></div>
+      <div class="cc-meta" style="color:#856404">For: Skin Tint + Moisturizer</div>
+      <div class="cc-link"><a href="https://www.tiktok.com/@sydneyfaithhh/video/7648328239336738062" target="_blank">▶ Watch ref 1</a> &nbsp;·&nbsp; <a href="https://www.tiktok.com/@sydneyfaithhh/video/7647971620102999310" target="_blank">▶ Watch ref 2</a></div>
+      <div class="cc-note"><strong>📌 Brief your creators:</strong> Real unfiltered skin tone + honest reaction. For moisturizer: nighttime routine context, "skin the morning after" reveal. Authenticity and relatability are the hooks here.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Brief Cheatsheet -->
+<div class="sec">
+  <div class="sec-title">🎯 Creator Brief Cheatsheet — What's Working Now</div>
+  <div class="brief-box">
+    <div class="brief-row">
+      <div class="brief-prod">💋 Lip Serum</div>
+      <div class="brief-chips">
+        <span class="bc">Jelly texture close-up</span>
+        <span class="bc">Charm as hero feature</span>
+        <span class="bc">Multi-shade comparison</span>
+        <span class="bc">"My lip color changed after 2 weeks"</span>
+        <span class="bc">Glossy lips result shot</span>
+      </div>
+    </div>
+    <div class="brief-row">
+      <div class="brief-prod">🪞 Skin Tint</div>
+      <div class="brief-chips">
+        <span class="bc">Bare skin → tinted before/after</span>
+        <span class="bc">"Looks like skincare, not makeup"</span>
+        <span class="bc">Pore-blurring close-up</span>
+        <span class="bc">GRWM embedded (not standalone unboxing)</span>
+        <span class="bc">"Like a real-life filter"</span>
+      </div>
+    </div>
+    <div class="brief-row">
+      <div class="brief-prod">✨ Retinol Moisturizer</div>
+      <div class="brief-chips">
+        <span class="bc">"Retinol doesn't have to be scary"</span>
+        <span class="bc">Butter / silky texture close-up</span>
+        <span class="bc">Nighttime routine context</span>
+        <span class="bc">"How my skin looks the next morning"</span>
+        <span class="bc">Beginner-friendly tone</span>
+      </div>
+    </div>
+    <div class="brief-row">
+      <div class="brief-prod">🌿 Clay Sticks</div>
+      <div class="brief-chips">
+        <span class="bc">"I never knew a clay stick could do this"</span>
+        <span class="bc">Satisfying application process</span>
+        <span class="bc">Clear skin result close-up</span>
+        <span class="bc">Nurse / authority POV</span>
+        <span class="bc">No-mess convenience angle</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p style="text-align:center;font-size:11px;color:#b4b2a9;margin-top:24px;">Glad2Glow · G2G TTS US · Creator Weekly Update · Jun 24, 2026</p>
+</div><!-- end content -->
+</div><!-- end page -->
+
+<script>
+const labels = ['6/6','6/7','6/8','6/9','6/10','6/11','6/12','6/13','6/14','6/15','6/16','6/17','6/18','6/19','6/20','6/21','6/22','6/23','6/24'];
+const costs  = [436,314,440,389,354,358,534,381,478,348,405,734,1200,1404,2095,1126,1160,881,903];
+const gmvs   = [239,327,279,214,232,425,577,301,512,305,417,999,1633,1565,2057,844,1798,1079,1385];
+
+new Chart(document.getElementById('trendChart'), {
+  data: {
+    labels,
+    datasets: [
+      { type:'bar', label:'Spend', data:costs,
+        backgroundColor: costs.map((_,i)=>i>=11?'rgba(29,158,117,0.55)':'rgba(55,138,221,0.5)'),
+        borderWidth:0, yAxisID:'y1', order:2 },
+      { type:'line', label:'GMV', data:gmvs,
+        borderColor:'#1d9e75', backgroundColor:'transparent', borderWidth:2.5,
+        pointRadius:4, pointBackgroundColor: gmvs.map((g,i)=>g>=costs[i]?'#1d9e75':'#e24b4a'),
+        tension:0.3, yAxisID:'y1', order:1 }
+    ]
+  },
+  options: { responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false} },
+    scales:{
+      y1:{ type:'linear', position:'left', grid:{color:'rgba(0,0,0,0.06)'}, ticks:{font:{size:10},color:'#888',callback:v=>'$'+v} },
+      x:{ grid:{display:false}, ticks:{font:{size:10},color:'#888',maxRotation:45} }
+    }
+  }
+});
+</script>
+</body>
+</html>
