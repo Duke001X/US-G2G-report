@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>G2G TTS US · July Creator Report W3</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f5f4f0; color: #1a1a18; font-size: 14px; line-height: 1.7; }
+.page { max-width: 920px; margin: 0 auto; padding: 36px 24px 56px; }
+.header-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; }
+.header h1 { font-size:22px; font-weight:800; }
+.header h1 span { color:#1d9e75; }
+.header-sub { font-size:12px; color:#6b7280; margin-top:4px; }
+.header-date { font-size:11px; color:#9ca3af; text-align:right; }
+.divider { height:1px; background:#e5e7eb; margin:14px 0 0; }
+.sec { font-size:10px; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#9ca3af; margin:28px 0 12px; display:flex; align-items:center; gap:8px; }
+.sec::after { content:''; flex:1; height:1px; background:#e5e7eb; }
+
+.kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:10px; }
+.kpi { background:#fff; border-radius:10px; border:0.5px solid #e5e7eb; padding:14px 16px; }
+.kpi-label { font-size:10px; color:#9ca3af; font-weight:600; margin-bottom:3px; }
+.kpi-val { font-size:22px; font-weight:800; }
+.kv-g { color:#059669; } .kv-b { color:#2563eb; } .kv-o { color:#d97706; }
+.kpi-sub { font-size:10px; color:#9ca3af; margin-top:3px; }
+.up { color:#059669; font-weight:700; } .dn { color:#dc2626; font-weight:700; }
+
+.progress-wrap { background:#fff; border-radius:10px; border:0.5px solid #e5e7eb; padding:14px 18px; margin-bottom:14px; }
+.prog-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.prog-title { font-size:12px; font-weight:700; }
+.prog-pct { font-size:18px; font-weight:800; color:#d97706; }
+.prog-bar-bg { background:#f3f4f6; border-radius:99px; height:10px; overflow:hidden; }
+.prog-bar { height:10px; border-radius:99px; }
+.prog-meta { display:flex; justify-content:space-between; margin-top:6px; font-size:10.5px; color:#9ca3af; }
+
+.daily-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-bottom:4px; }
+.day-card { background:#fff; border-radius:8px; border:0.5px solid #e5e7eb; padding:9px 8px; text-align:center; }
+.day-card.best { border-color:#059669; background:#f0fdf4; }
+.day-label { font-size:9px; color:#9ca3af; font-weight:700; text-transform:uppercase; margin-bottom:3px; }
+.day-roi { font-size:16px; font-weight:800; }
+.day-sub { font-size:9px; color:#6b7280; margin-top:2px; line-height:1.5; }
+
+.wow-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:4px; }
+.wow-card { background:#fff; border-radius:10px; border:0.5px solid #e5e7eb; padding:14px 16px; }
+.wow-title { font-size:11px; font-weight:700; color:#6b7280; margin-bottom:10px; }
+.wow-item { display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:0.5px solid #f9fafb; font-size:12px; }
+.wow-item:last-child { border-bottom:none; }
+.wow-label { color:#6b7280; }
+.wow-vals { display:flex; gap:14px; }
+.wv { text-align:right; }
+.wv-l { font-size:9px; color:#9ca3af; }
+.wv-v { font-size:13px; font-weight:700; }
+
+.prod-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.pc-card { background:#fff; border-radius:10px; border:0.5px solid #e5e7eb; overflow:hidden; }
+.pc-head { padding:11px 14px; display:flex; justify-content:space-between; align-items:center; border-bottom:0.5px solid #f3f4f6; }
+.pc-head.green { background:#ecfdf5; }
+.pc-head.yellow { background:#fffbeb; }
+.pc-head.red { background:#fff1f2; }
+.pc-head.blue { background:#eff6ff; }
+.pc-head.gray { background:#f9fafb; }
+.pc-name { font-size:13px; font-weight:700; }
+.pc-badge { font-size:11px; font-weight:700; padding:2px 9px; border-radius:20px; }
+.badge-g { background:#d1fae5; color:#065f46; }
+.badge-y { background:#fef3c7; color:#92400e; }
+.badge-r { background:#fee2e2; color:#991b1b; }
+.badge-b { background:#dbeafe; color:#1e40af; }
+.badge-gray { background:#f3f4f6; color:#6b7280; }
+.pc-body { padding:12px 14px; }
+.pc-stats { display:flex; gap:14px; margin-bottom:8px; flex-wrap:wrap; }
+.pc-s-l { font-size:9px; color:#9ca3af; text-transform:uppercase; }
+.pc-s-v { font-size:13px; font-weight:700; }
+.pc-insight { font-size:11.5px; color:#374151; line-height:1.7; background:#f9fafb; border-radius:7px; padding:8px 11px; margin-bottom:8px; }
+.pc-insight strong { font-weight:700; color:#1a1a18; }
+
+.vid-row { border-top:0.5px solid #f3f4f6; padding:8px 14px; display:grid; grid-template-columns:1fr auto; gap:8px; align-items:start; }
+.vr-name { font-size:12px; font-weight:700; margin-bottom:2px; }
+.vr-title { font-size:10.5px; color:#6b7280; font-style:italic; margin-bottom:4px; }
+.vr-metrics { display:flex; gap:8px; flex-wrap:wrap; }
+.vm { font-size:10px; color:#6b7280; } .vm span { color:#9ca3af; }
+.vr-link { font-size:10px; color:#2563eb; text-decoration:none; background:#eff6ff; border-radius:4px; padding:1px 6px; margin-top:3px; display:inline-block; }
+.vr-right { text-align:right; min-width:72px; }
+.vr-roi { font-size:14px; font-weight:800; }
+.vr-orders { font-size:10px; color:#9ca3af; }
+.vr-tag { font-size:9px; font-weight:700; padding:1px 6px; border-radius:20px; margin-top:3px; display:inline-block; }
+.tag-g { background:#d1fae5; color:#065f46; }
+.tag-r { background:#fee2e2; color:#991b1b; }
+.tag-b { background:#dbeafe; color:#1e40af; }
+.tag-o { background:#fef3c7; color:#92400e; }
+.tag-gray { background:#f3f4f6; color:#6b7280; }
+.roi-g { color:#059669; font-weight:700; }
+.roi-w { color:#d97706; font-weight:700; }
+.roi-r { color:#dc2626; font-weight:700; }
+
+.ins { border-radius:10px; padding:12px 16px; font-size:12px; line-height:1.7; margin-bottom:9px; }
+.ins-g { background:#ecfdf5; border-left:3px solid #059669; }
+.ins-o { background:#fffbeb; border-left:3px solid #d97706; }
+.ins-r { background:#fff1f2; border-left:3px solid #dc2626; }
+.ins-b { background:#eff6ff; border-left:3px solid #2563eb; }
+.ins strong { font-weight:700; }
+
+.todo-wrap { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.todo-box { background:#fff; border-radius:10px; border:0.5px solid #e5e7eb; padding:16px 18px; }
+.todo-title { font-size:12px; font-weight:700; margin-bottom:10px; padding-bottom:8px; border-bottom:0.5px solid #f3f4f6; }
+.todo-row { display:flex; gap:8px; padding:5px 0; border-bottom:0.5px solid #f9fafb; font-size:12px; align-items:flex-start; }
+.todo-row:last-child { border-bottom:none; }
+.todo-tag { font-size:10px; font-weight:700; padding:2px 8px; border-radius:20px; flex-shrink:0; margin-top:2px; }
+.tt-g { background:#d1fae5; color:#065f46; }
+.tt-o { background:#fef3c7; color:#92400e; }
+.tt-r { background:#fee2e2; color:#991b1b; }
+.tt-b { background:#dbeafe; color:#1e40af; }
+
+.bundle-tbl { width:100%; border-collapse:collapse; background:#fff; border-radius:10px; overflow:hidden; border:0.5px solid #e5e7eb; }
+.bundle-tbl th { background:#1a1a18; color:#fff; padding:7px 12px; font-size:10px; font-weight:600; text-align:right; }
+.bundle-tbl th:first-child { text-align:left; }
+.bundle-tbl td { padding:7px 12px; border-bottom:0.5px solid #f3f4f6; font-size:11.5px; text-align:right; }
+.bundle-tbl td:first-child { text-align:left; font-weight:600; }
+.bundle-tbl tr:last-child td { border-bottom:none; }
+.g { color:#059669; font-weight:700; } .r { color:#dc2626; font-weight:700; } .y { color:#d97706; font-weight:700; }
+
+.footer { text-align:center; font-size:10px; color:#d1d5db; margin-top:44px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header-top">
+  <div class="header">
+    <h1>G2G TTS US · <span>July Creator Report W3 | Jul 15–21</span></h1>
+    <div class="header-sub">Period: Jul 15 – Jul 21, 2026 (7 days)&nbsp;·&nbsp; Creator &amp; Creative Analysis</div>
+  </div>
+  <div class="header-date">Generated: Jul 22, 2026<br>Source: Gmax Backend</div>
+</div>
+<div class="divider"></div>
+
+<!-- KPIs -->
+<div class="sec">W3 Overview</div>
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="kpi-label">GMV</div>
+    <div class="kpi-val kv-g">$13,687</div>
+    <div class="kpi-sub">Daily avg $1,955 vs W2 $2,327 <span class="dn">↓16%</span></div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Ad Spend</div>
+    <div class="kpi-val kv-b">$7,789</div>
+    <div class="kpi-sub">Daily avg $1,113 vs W2 $1,519 <span class="up">↓27% (intentional)</span></div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">ROI</div>
+    <div class="kpi-val kv-g">1.76</div>
+    <div class="kpi-sub">vs W2 1.53 &nbsp;<span class="up">↑+0.23</span></div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">CPA</div>
+    <div class="kpi-val kv-g">$7.52</div>
+    <div class="kpi-sub">vs W2 $8.69 &nbsp;<span class="up">↓13%</span></div>
+  </div>
+</div>
+
+<!-- Progress -->
+<div class="progress-wrap">
+  <div class="prog-head">
+    <div class="prog-title">🎯 July Target Progress (Jul 1–21)</div>
+    <div class="prog-pct">61.2%</div>
+  </div>
+  <div class="prog-bar-bg"><div class="prog-bar" style="width:61.2%;background:linear-gradient(90deg,#d97706,#fbbf24)"></div></div>
+  <div class="prog-meta">
+    <span>Monthly Target: ¥500,000 ≈ $69,000</span>
+    <span>Cumulative: $42,207 (21 days)</span>
+    <span>10 days remaining · Need $2,679/day</span>
+  </div>
+</div>
+
+<div class="ins ins-o">
+  <strong>Progress note:</strong> Current daily GMV avg is $2,010, but hitting the target requires $2,679/day — a ~$670 daily gap. Blackhead Clay restocking + bundle link testing + Clay Stick 2pcs scaling are the main levers to close this gap next week. June daily avg was only $959; July has more than doubled that — overall trajectory is healthy.
+</div>
+
+<!-- Daily trend -->
+<div class="sec">Daily Trend — Accelerating into Weekend</div>
+<div class="daily-grid">
+  <div class="day-card">
+    <div class="day-label">Tue Jul 15</div>
+    <div class="day-roi roi-r">1.32</div>
+    <div class="day-sub">$1,804<br>138 orders</div>
+  </div>
+  <div class="day-card">
+    <div class="day-label">Wed Jul 16</div>
+    <div class="day-roi roi-r">1.34</div>
+    <div class="day-sub">$1,379<br>102 orders</div>
+  </div>
+  <div class="day-card">
+    <div class="day-label">Thu Jul 17</div>
+    <div class="day-roi roi-w">1.59</div>
+    <div class="day-sub">$1,574<br>125 orders</div>
+  </div>
+  <div class="day-card">
+    <div class="day-label">Fri Jul 18</div>
+    <div class="day-roi roi-g">1.91</div>
+    <div class="day-sub">$2,116<br>160 orders</div>
+  </div>
+  <div class="day-card">
+    <div class="day-label">Sat Jul 19</div>
+    <div class="day-roi roi-g">2.12</div>
+    <div class="day-sub">$2,089<br>156 orders</div>
+  </div>
+  <div class="day-card">
+    <div class="day-label">Sun Jul 20</div>
+    <div class="day-roi roi-g">1.72</div>
+    <div class="day-sub">$1,878<br>140 orders</div>
+  </div>
+  <div class="day-card best">
+    <div class="day-label">Mon Jul 21 🏆</div>
+    <div class="day-roi roi-g">2.33</div>
+    <div class="day-sub">$2,847<br>215 orders</div>
+  </div>
+</div>
+
+<div class="ins ins-g" style="margin-top:10px">
+  <strong>Jul 21 (Monday) ROI 2.33, $2,847 GMV is the strongest single day of the week,</strong> and the best recent single-day result in the account. Mondays are usually slow — this reversal was driven by @tayylormonet Lip Serum orders ROI 12.39（40 orders，Spendjust$43）and @sammycakes2020 Skin Tint ROI 5.38（45 orders) both firing on the same day. The lower ROI on Tue–Wed (Jul 15–16) is expected — Blackhead Clay had just resumed after restocking and budgets were still in cold-start phase.
+</div>
+
+<!-- WoW -->
+<div class="sec">Week-on-Week — Key Metrics</div>
+<div class="wow-grid">
+  <div class="wow-card">
+    <div class="wow-title">📊 Campaign Metrics W1→W2→W3</div>
+    <div class="wow-item">
+      <span class="wow-label">Daily GMV avg</span>
+      <div class="wow-vals">
+        <div class="wv"><div class="wv-l">W1</div><div class="wv-v">$1,344</div></div>
+        <div class="wv"><div class="wv-l">W2</div><div class="wv-v">$2,327</div></div>
+        <div class="wv"><div class="wv-l">W3</div><div class="wv-v" style="color:#d97706">$1,955</div></div>
+      </div>
+    </div>
+    <div class="wow-item">
+      <span class="wow-label">ROI</span>
+      <div class="wow-vals">
+        <div class="wv"><div class="wv-l">W1</div><div class="wv-v">1.39</div></div>
+        <div class="wv"><div class="wv-l">W2</div><div class="wv-v">1.53</div></div>
+        <div class="wv"><div class="wv-l">W3</div><div class="wv-v" style="color:#059669">1.76</div></div>
+      </div>
+    </div>
+    <div class="wow-item">
+      <span class="wow-label">CPA</span>
+      <div class="wow-vals">
+        <div class="wv"><div class="wv-l">W1</div><div class="wv-v">$9.41</div></div>
+        <div class="wv"><div class="wv-l">W2</div><div class="wv-v">$8.69</div></div>
+        <div class="wv"><div class="wv-l">W3</div><div class="wv-v" style="color:#059669">$7.52</div></div>
+      </div>
+    </div>
+    <div class="wow-item">
+      <span class="wow-label">Daily Spend avg</span>
+      <div class="wow-vals">
+        <div class="wv"><div class="wv-l">W1</div><div class="wv-v">$1,516</div></div>
+        <div class="wv"><div class="wv-l">W2</div><div class="wv-v">$1,519</div></div>
+        <div class="wv"><div class="wv-l">W3</div><div class="wv-v" style="color:#2563eb">$1,113</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="wow-card">
+    <div class="wow-title">🎨 Creative Quality Trend W1→W2→W3</div>
+    <div class="wow-item">
+      <span class="wow-label">Videos</span>
+      <div class="wow-vals">
+        <div class="wv"><div class="wv-l">W1</div><div class="wv-v">423 videos</div></div>
+        <div class="wv"><div class="wv-l">W2</div><div class="wv-v">550 videos</div></div>
+        <div class="wv"><div class="wv-l">W3</div><div class="wv-v">646 videos</div></div>
+      </div>
+    </div>
+    <div class="wow-item">
+      <span class="wow-label">CPM</span>
+      <div class="wow-vals">
+        <div class="wv"><div class="wv-l">W1</div><div class="wv-v" style="color:#059669">$13.1</div></div>
+        <div class="wv"><div class="wv-l">W2</div><div class="wv-v" style="color:#059669">$10.5</div></div>
+        <div class="wv"><div class="wv-l">W3</div><div class="wv-v" style="color:#dc2626">$13.5</div></div>
+      </div>
+    </div>
+    <div class="wow-item">
+      <span class="wow-label">CTR</span>
+      <div class="wow-vals">
+        <div class="wv"><div class="wv-l">W1</div><div class="wv-v" style="color:#059669">5.42%</div></div>
+        <div class="wv"><div class="wv-l">W2</div><div class="wv-v" style="color:#d97706">3.65%</div></div>
+        <div class="wv"><div class="wv-l">W3</div><div class="wv-v" style="color:#d97706">3.74%</div></div>
+      </div>
+    </div>
+    <div class="wow-item">
+      <span class="wow-label">CVR</span>
+      <div class="wow-vals">
+        <div class="wv"><div class="wv-l">W1</div><div class="wv-v">0.95%</div></div>
+        <div class="wv"><div class="wv-l">W2</div><div class="wv-v" style="color:#059669">1.01%</div></div>
+        <div class="wv"><div class="wv-l">W3</div><div class="wv-v" style="color:#d97706">0.86%</div></div>
+      </div>
+    </div>
+    <div class="wow-item">
+      <span class="wow-label">2s View Rate</span>
+      <div class="wow-vals">
+        <div class="wv"><div class="wv-l">W1</div><div class="wv-v" style="color:#059669">17.9%</div></div>
+        <div class="wv"><div class="wv-l">W2</div><div class="wv-v" style="color:#d97706">15.6%</div></div>
+        <div class="wv"><div class="wv-l">W3</div><div class="wv-v" style="color:#dc2626">12.9%</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ins ins-o" style="margin-bottom:14px">
+  <strong>creativequality signal：</strong>Videoscount growing three weeks in a row（423→550→646 videos），but 2s view ratekeeps declining（17.9%→15.6%→12.9%），CTR dropped from 5.42% (W1) to 3.74% (W3). <strong>Volume up, quality down——newly added creativeare pulling down overall quality，especiallyLip Serum（201 videos，Avg 2s12%）is diluting account-wide metrics。</strong>
+</div>
+
+<!-- Product GMV 3-week trend -->
+<div class="sec">Product GMV — 3-Week Trend</div>
+<table class="bundle-tbl">
+  <thead>
+    <tr><th>Product</th><th>W1 GMV</th><th>W1 ROI</th><th>W2 GMV</th><th>W2 ROI</th><th>W3 GMV</th><th>W3 ROI</th><th>Total GMV</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Skin Tint</td><td class="g">$5,224</td><td class="y">1.63</td><td>$4,799</td><td class="y">1.73</td><td>$2,502</td><td class="y">1.63</td><td><strong>$12,525</strong></td>
+    </tr>
+    <tr>
+      <td>Lip Serum</td><td>$1,255</td><td class="y">2.35</td><td>$1,750</td><td class="y">1.96</td><td class="g">$3,519</td><td class="y">1.84</td><td><strong>$6,524</strong></td>
+    </tr>
+    <tr>
+      <td>Mugwort Clay</td><td>$1,146</td><td class="y">1.77</td><td>$2,565</td><td class="y">1.81</td><td class="g">$2,770</td><td class="y">1.82</td><td><strong>$6,481</strong></td>
+    </tr>
+    <tr>
+      <td>Blackhead Clay</td><td>$1,769</td><td class="y">1.16</td><td class="g">$3,293</td><td class="y">1.78</td><td>$232</td><td class="r">0.84</td><td><strong>$5,294</strong></td>
+    </tr>
+    <tr>
+      <td>Clay Stick 2pcs</td><td>$0</td><td>—</td><td>$1,526</td><td class="g">2.26</td><td class="g">$2,006</td><td class="g">2.36</td><td><strong>$3,532</strong> <span style="font-size:9px;color:#2563eb;font-weight:700">Product Card driven</span></td>
+    </tr>
+    <tr>
+      <td>Powder Found.</td><td>$527</td><td class="r">0.86</td><td>$473</td><td class="y">1.23</td><td class="g">$1,021</td><td class="g">2.46</td><td><strong>$2,021</strong></td>
+    </tr>
+    <tr>
+      <td>Deep Cleanse</td><td>$337</td><td class="r">0.97</td><td>$320</td><td class="y">1.69</td><td>$550</td><td class="g">3.94</td><td><strong>$1,207</strong></td>
+    </tr>
+    <tr>
+      <td>Retinol Moist</td><td>$483</td><td class="y">1.44</td><td>$482</td><td class="y">1.60</td><td>$227</td><td class="y">1.88</td><td><strong>$1,192</strong></td>
+    </tr>
+    <tr>
+      <td>Loose Powder</td><td>$351</td><td class="y">1.04</td><td>$392</td><td class="g">2.10</td><td>$228</td><td class="y">1.65</td><td><strong>$971</strong></td>
+    </tr>
+    <tr>
+      <td>Cleansing Bundle</td><td>$0</td><td>—</td><td>$118</td><td class="r">0.89</td><td>$371</td><td class="g">2.41</td><td><strong>$489</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Product analysis -->
+<div class="sec">Product Analysis</div>
+<div class="prod-grid">
+
+  <!-- Sammycakes + tayylormonet highlight -->
+  <div class="pc-card">
+    <div class="pc-head green">
+      <div class="pc-name">Skin Tint — Changing of the Guard</div>
+      <span class="pc-badge badge-y">ROI 1.63 · 184 orders</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-stats">
+        <div><div class="pc-s-l">W3 Spend</div><div class="pc-s-v">$1,533</div></div>
+        <div><div class="pc-s-l">Hit rate</div><div class="pc-s-v">22%</div></div>
+        <div><div class="pc-s-l">CPM</div><div class="pc-s-v" style="color:#d97706">$30.2</div></div>
+        <div><div class="pc-s-l">Avg 2s</div><div class="pc-s-v">17.3%</div></div>
+      </div>
+      <div class="pc-insight">
+        This week saw a clear changing of the guard. <strong>@sammycakes2020's main video bounced back hard in W3 with ROI 5.38 (45 orders)</strong> — after dropping to ROI 1.28 last week, the algorithm found fresh audiences again. But the second video sits at ROI 0.82, and running both simultaneously causes audience overlap. Recommend pausing the second video.<br><br>
+        <strong>@lesettey's mature skin angle delivered 34 orders in W3, CVR 4.3%, 2s rate 49.5%</strong> — now a reliable second source of orders. CPM $65.2 is high, but the precision audience keeps CVR strong, so it's worth maintaining.<br><br>
+        <strong>@8balltrina ROI 2.22（7 orders，Spend$43），CPM only $12.0</strong> — low CPM, high ROI, the hidden gem of Skin Tint this week. Recommend scaling to test capacity.
+      </div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@sammycakes2020 · Main video bounced back 🔥</div>
+        <div class="vr-title">"Whoa can't believe a skin tint gave me this much coverage"</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>2s</span> <strong style="color:#059669">62.6%</strong></div>
+          <div class="vm"><span>CVR</span> 3.4%</div>
+          <div class="vm"><span>Spend</span> $112</div>
+        </div>
+        <a href="https://www.tiktok.com/@sammycakes2020/video/7657219264369249566" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-g">ROI 5.38</div><div class="vr-orders">45 orders</div><div class="vr-tag tag-g">W3 comeback</div></div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@lesettey · Mature skin, steady</div>
+        <div class="vr-title">"Finally! A skin tint for mature skin #skintint #matureskin"</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>2s</span> 49.5%</div>
+          <div class="vm"><span>CVR</span> 4.3%</div>
+          <div class="vm"><span>Spend</span> $478</div>
+        </div>
+        <a href="https://www.tiktok.com/@lesettey/video/7662501296087289119" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-w">ROI 0.98</div><div class="vr-orders">34 orders</div><div class="vr-tag tag-o">Steady orders, ROI low</div></div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@8balltrina · Low CPM gem 🆕</div>
+        <div class="vr-title">"in love with the formula 🤭 #skintint #makeup"</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>2s</span> 30.1%</div>
+          <div class="vm"><span>CPM</span> <strong style="color:#059669">$12.0</strong></div>
+          <div class="vm"><span>Spend</span> $43</div>
+        </div>
+        <a href="https://www.tiktok.com/@8balltrina" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-g">ROI 2.22</div><div class="vr-orders">7 orders</div><div class="vr-tag tag-g">Scale up</div></div>
+    </div>
+  </div>
+
+  <!-- Lip Serum -->
+  <div class="pc-card">
+    <div class="pc-head yellow">
+      <div class="pc-name">Lip Serum — Breakout Creative Emerged</div>
+      <span class="pc-badge badge-y">ROI 1.84 · 269 orders</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-stats">
+        <div><div class="pc-s-l">W3 Spend</div><div class="pc-s-v">$1,909</div></div>
+        <div><div class="pc-s-l">W3 videos</div><div class="pc-s-v" style="color:#dc2626">201 videos</div></div>
+        <div><div class="pc-s-l">Hit rate</div><div class="pc-s-v" style="color:#dc2626">14%</div></div>
+        <div><div class="pc-s-l">Avg 2s</div><div class="pc-s-v" style="color:#dc2626">12.0%</div></div>
+      </div>
+      <div class="pc-insight">
+        biggest event this week ：<strong>@tayylormonet  ordersvideo ROI 12.39、40 orders，Spendjust $43</strong>——this isaccount's recent besthigh ROIcreative。opens with「brightening lip serum from @Glad2Glow」showing the lip application process，2s view rate 24.4%，CVR 1.6%，powered by ultra-low  CPM $23.1 and precise algorithm matching。<br><br>
+        <strong>But overall, 201 videos still only hit 14% conversion rate, avg 2s rate 12%.</strong>@tasha_renee81 spent $683 ROI only 0.93 — the biggest budget drain. @evesillusions is the most consistent profitable video at ROI 1.84 (23 orders).<br><br>
+        <strong>Direction for creators: follow @tayylormonet — no narration needed, just show the application process in natural light. The first 2 seconds ARE the effect.</strong>
+      </div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@tayylormonet · Highest ROI this week 🔥</div>
+        <div class="vr-title">"brightening lip serum from @Glad2Glow ✨✨ #lipserum"</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>2s</span> 24.4%</div>
+          <div class="vm"><span>CVR</span> 1.6%</div>
+          <div class="vm"><span>CPM</span> $23.1</div>
+          <div class="vm"><span>Spend</span> $43</div>
+        </div>
+        <a href="https://www.tiktok.com/@tayylormonet" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-g">ROI 12.39</div><div class="vr-orders">40 orders</div><div class="vr-tag tag-g">Highest ROI in account</div></div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@evesillusions · Most consistent</div>
+        <div class="vr-title">"Love love love thesee 🧚🏽 and I actually have seen a difference"</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>2s</span> 32.7%</div>
+          <div class="vm"><span>CVR</span> 2.3%</div>
+          <div class="vm"><span>Spend</span> $165</div>
+        </div>
+        <a href="https://www.tiktok.com/@evesillusions/video/7649004364622826783" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-g">ROI 1.84</div><div class="vr-orders">23 orders</div><div class="vr-tag tag-b">Most reliable</div></div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@tasha_renee81 · Budget drain ⚠</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>2s</span> 23.5%</div>
+          <div class="vm"><span>Spend</span> <strong style="color:#dc2626">$683</strong></div>
+          <div class="vm"><span>ROI consecutive</span> 0.91→0.93 losing</div>
+        </div>
+        <a href="https://www.tiktok.com/@tasha_renee81/video/7655023126870265119" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-r">ROI 0.93</div><div class="vr-orders">48 orders</div><div class="vr-tag tag-r">Must cut budget</div></div>
+    </div>
+  </div>
+
+  <!-- Mugwort Clay -->
+  <div class="pc-card">
+    <div class="pc-head green">
+      <div class="pc-name">Mugwort Clay — Stabilised</div>
+      <span class="pc-badge badge-g">ROI 1.82 · 232 orders, steady</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-stats">
+        <div><div class="pc-s-l">W3 Spend</div><div class="pc-s-v">$1,522</div></div>
+        <div><div class="pc-s-l">Hit rate</div><div class="pc-s-v roi-g">37%</div></div>
+        <div><div class="pc-s-l">CPM</div><div class="pc-s-v roi-g">$6.5</div></div>
+        <div><div class="pc-s-l">W2→W3</div><div class="pc-s-v up">1.81→1.82</div></div>
+      </div>
+      <div class="pc-insight">
+        ROI has held at 1.81–1.82 for two straight weeks — the decline has stopped.<strong>@samjeffhop 157 orders，Spend $1,076, CPM $6.2 — still the best value-for-money creator in the account. This video has been running 8+ weeks and is still converting consistently, meaning the algorithm continues to find the right audience.</strong><br><br>
+        Hit rate 37% — among the highest of all core products. <strong>The biggest risk right now is single-video dependency: if this video suddenly drops off, Mugwort Clay takes a hard hit. Fresh creatives are urgently needed — keep following @samjeffhop's style: apply product directly on skin, no narration.</strong>
+      </div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@samjeffhop · 8-week consistent main video</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>2s</span> 29.6%</div>
+          <div class="vm"><span>CVR</span> 1.9%</div>
+          <div class="vm"><span>CPM</span> <strong style="color:#059669">$6.2</strong></div>
+          <div class="vm"><span>Spend</span> $1,076</div>
+        </div>
+        <a href="https://www.tiktok.com/@samjeffhop/video/7650332566695808269" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-g">ROI 1.75</div><div class="vr-orders">157 orders</div><div class="vr-tag tag-b">Evergreen performer</div></div>
+    </div>
+  </div>
+
+  <!-- Powder Found -->
+  <div class="pc-card">
+    <div class="pc-head green">
+      <div class="pc-name">Powder Found. — Consistent Breakout</div>
+      <span class="pc-badge badge-g">ROI 2.46 · 76 orders ↑↑</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-stats">
+        <div><div class="pc-s-l">W3 Spend</div><div class="pc-s-v">$415</div></div>
+        <div><div class="pc-s-l">Hit rate</div><div class="pc-s-v roi-g">23%</div></div>
+        <div><div class="pc-s-l">Avg 2s</div><div class="pc-s-v roi-g">26.3%</div></div>
+        <div><div class="pc-s-l">W2→W3</div><div class="pc-s-v up">1.23→2.46</div></div>
+      </div>
+      <div class="pc-insight">
+        two straight weeks of improvement — W3 ROI 2.46 is the highest since June. <strong>@christianjohnson2022 delivered 56 orders at ROI 2.92, 2s rate 49.6%, $259 spend</strong> — the exact same winning formula as Skin Tint: open directly with on-face application, the first 2 seconds are the result, not the introduction.<br><br>
+        <strong>Powder Found. is the biggest growth story of the month: from June avg ROI 1.1 to W3's 2.46 — fully validated. Scale up confidently next week and add new creatives following @christianjohnson2022's approach.</strong>
+      </div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@christianjohnson2022 · Powder Found. main video 🔥</div>
+        <div class="vr-title">"@Glad2Glow.US #glad2glow #powderfoundation #foundation"</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>2s</span> <strong style="color:#059669">49.6%</strong></div>
+          <div class="vm"><span>CVR</span> 2.2%</div>
+          <div class="vm"><span>CPM</span> $31.4</div>
+          <div class="vm"><span>Spend</span> $259</div>
+        </div>
+        <a href="https://www.tiktok.com/@christianjohnson2022" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-g">ROI 2.92</div><div class="vr-orders">56 orders</div><div class="vr-tag tag-g">2 weeks strong</div></div>
+    </div>
+  </div>
+
+  <!-- Deep Cleanse -->
+  <div class="pc-card">
+    <div class="pc-head green">
+      <div class="pc-name">Deep Cleanse — Highest Hit Rate</div>
+      <span class="pc-badge badge-g">ROI 3.94 · Hit rate59%</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-stats">
+        <div><div class="pc-s-l">W3 Spend</div><div class="pc-s-v">$140</div></div>
+        <div><div class="pc-s-l">Orders</div><div class="pc-s-v">44 orders</div></div>
+        <div><div class="pc-s-l">Hit rate</div><div class="pc-s-v roi-g">59%</div></div>
+        <div><div class="pc-s-l">CPM</div><div class="pc-s-v roi-g">$10.1</div></div>
+      </div>
+      <div class="pc-insight">
+        <strong>Hit rate 59%、ROI 3.94，the strongest all-round performing product in the account.</strong> 10 out of 17 videos converted, CPM $10.1 is cheap, audience targeting is precise. W2 ROI 1.69 → W3 ROI 3.94 is a massive jump.<br><br>
+        <strong>firstbudget is very low（$140 for 7 days, $20/day avg). Recommend scaling to $100/day next week to test whether ROI 3+ holds at volume.</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blackhead Clay - recovery -->
+  <div class="pc-card">
+    <div class="pc-head yellow">
+      <div class="pc-name">Blackhead Clay — Back in Stock, Restarting</div>
+      <span class="pc-badge badge-r">ROI 0.84 · Cold-start phase</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-stats">
+        <div><div class="pc-s-l">Jul16</div><div class="pc-s-v roi-r">ROI 0.11</div></div>
+        <div><div class="pc-s-l">Jul20</div><div class="pc-s-v roi-r">ROI 0.28</div></div>
+        <div><div class="pc-s-l">Jul21</div><div class="pc-s-v roi-g">ROI 2.10</div></div>
+        <div><div class="pc-s-l">Creative spend</div><div class="pc-s-v">$263</div></div>
+      </div>
+      <div class="pc-insight">
+        Cold-start after restocking is progressing normally，<strong>Jul 21  orders-day ROI 2.10（16 orders），algorithm is recovering faster than expected.</strong> Most spend is still going to @dndjsxxx01 ($256, ROI 0.32), but this video has historically poor ROI and should not receive more budget.<br><br>
+        <strong>@wellnessbenefitsonly (W2 ROI 3.56) and @branttakes (W2 ROI 2.38) are the validated high-ROI direction — their budgets haven't ramped up yet, recommend manually pushing them rather than waiting for the algorithm to allocate naturally.</strong> Do not increase @dndjsxxx01's budget further.<br><br>
+        Note: avg 2s rate of 2.0% in creative data is because cold-start phase shows many impressions without effective play — this is normal.
+      </div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@dndjsxxx01 · Consistently underperforming ⚠</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>Spend</span> <strong style="color:#dc2626">$256</strong></div>
+          <div class="vm"><span>Historical ROI</span> consistently losing</div>
+        </div>
+        <a href="https://www.tiktok.com/@dndjsxxx01/video/7656903449740627222" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-r">ROI 0.32</div><div class="vr-orders">7 orders</div><div class="vr-tag tag-r">Do not increase budget</div></div>
+    </div>
+  </div>
+
+  <!-- Clay Stick 2pcs -->
+  <div class="pc-card">
+    <div class="pc-head blue">
+      <div class="pc-name">Clay Stick 2pcs — Product Card Driven</div>
+      <span class="pc-badge badge-g">ROI 2.36 · 135 orders</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-stats">
+        <div><div class="pc-s-l">Total campaign spend</div><div class="pc-s-v">$852</div></div>
+        <div><div class="pc-s-l">Creative spend</div><div class="pc-s-v" style="color:#d97706">$147</div></div>
+        <div><div class="pc-s-l">Product card est.</div><div class="pc-s-v roi-g">~$705</div></div>
+        <div><div class="pc-s-l">W2→W3</div><div class="pc-s-v up">2.26→2.36</div></div>
+      </div>
+      <div class="pc-insight">
+        <strong>Important: Clay Stick 2pcs growth this week is primarily driven by product card (organic shop tab) traffic — actual creative spend was only $147 (17 videos), just 17% of total campaign spend.</strong> Creative hit rate 24%, avg 2s rate 12.7% — creatives themselves are not performing strongly.<br><br>
+        Product card driven growth means the platform is recommending organically — not the result of creator content. Daily trend confirms this: Jul 15–17 (creative interference period) ROI 0.45–0.49; from Jul 18 onwards product card resumed dominance and ROI recovered to 2.80–3.36.<br><br>
+        <strong>Strategy: do not pile on more creatives. Let the product card run naturally. If creatives are needed, align content closely with the product card category to avoid disrupting the algorithm's matching.</strong> For product card data separately, a Shop Tab report export is needed.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Bundle links -->
+<div class="sec">Bundle Links Performance</div>
+<table class="bundle-tbl">
+  <thead>
+    <tr><th>Link</th><th>Est. Composition</th><th>Spend</th><th>Orders</th><th>ROI</th><th>Call</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Clay Stick 2pcs</td><td style="text-align:left;font-size:11px;color:#6b7280">Blackhead + Mugwort clay stick bundle</td>
+      <td>$852</td><td>135 orders</td><td class="g">2.36</td>
+      <td style="font-size:11px;color:#059669;text-align:left">✅ Keep, primarily product card</td>
+    </tr>
+    <tr>
+      <td>Cleansing Bundle</td><td style="text-align:left;font-size:11px;color:#6b7280">Deep Cleanse + Cleansing Oil + Peeling Gel</td>
+      <td>$154</td><td>32 orders</td><td class="g">2.41</td>
+      <td style="font-size:11px;color:#059669;text-align:left">✅ Keep running, ROI stable</td>
+    </tr>
+    <tr>
+      <td>Skin Tint+Lip Bundle</td><td style="text-align:left;font-size:11px;color:#6b7280">Skin Tint + Lip Serum</td>
+      <td>$105</td><td>4 orders</td><td class="y">0.83</td>
+      <td style="font-size:11px;color:#d97706;text-align:left">⚠ Low budget, observe only</td>
+    </tr>
+    <tr>
+      <td>Lip Serum 2pcs</td><td style="text-align:left;font-size:11px;color:#6b7280">Lip Serum 2-pack</td>
+      <td>$172</td><td>4 orders</td><td class="r">0.63</td>
+      <td style="font-size:11px;color:#dc2626;text-align:left">❌ Consistently losing, consider pausing</td>
+    </tr>
+    <tr>
+      <td>Serum Bundle</td><td style="text-align:left;font-size:11px;color:#6b7280">377 Serum + PDRN + Acne Serum + Retinol Serum</td>
+      <td>$227</td><td>3 orders</td><td class="r">0.20</td>
+      <td style="font-size:11px;color:#dc2626;text-align:left">❌ 2 weeks ineffective, pause</td>
+    </tr>
+    <tr>
+      <td>Moist Bundle</td><td style="text-align:left;font-size:11px;color:#6b7280">377 Moist + Brightening + Blueberry + Retinol Moist</td>
+      <td>$227</td><td>1 orders</td><td class="r">0.09</td>
+      <td style="font-size:11px;color:#dc2626;text-align:left">❌ 2 weeks ineffective, pause</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="ins ins-r" style="margin-top:10px">
+  <strong>Bundle verdict:</strong> Links with genuine bundle value (Clay Stick 2pcs, Cleansing Bundle) both sit at ROI 2.4+. Forced bundles of slow-moving single products (Serum Bundle, Moist Bundle) have posted ROI 0.1–0.2 for two straight weeks — buyers see no value. Recommend pausing both this week and redirecting that budget to Deep Cleanse and Powder Found. scaling.
+</div>
+
+<!-- Summary -->
+<div class="sec">Summary & Next Week Direction</div>
+<div class="todo-wrap">
+  <div class="todo-box">
+    <div class="todo-title">📋 W3 Key Takeaways</div>
+    <div style="font-size:12px;color:#374151;line-height:1.9">
+      ① <strong>ROI improved three weeks in a row (1.39→1.53→1.76), CPA dropped three weeks in a row ($9.41→$8.69→$7.52)</strong> — spend structure is getting more efficient.<br>
+      ② <strong>But creative quality signals are moving in the opposite direction:</strong> 2s view rate declined three straight weeks (17.9%→15.6%→12.9%), CTR fell from 5.42% to 3.74%. Volume up, quality down — main drag is Lip Serum (201 videos, avg 2s rate 12%).<br>
+      ③ <strong>Clay Stick 2pcs GMV $0→$1,526→$2,006 looks impressive — but it's product card driven,</strong> creative spend is only 17% of campaign total. Creators do not need to produce more videos for this product.<br>
+      ④ <strong>Powder Found. and Deep Cleanse are the most important creative breakthroughs this month:</strong> Powder Found. ROI 0.86→1.23→2.46 three weeks running; Deep Cleanse hit rate 59%, ROI 3.94 — both massively under-budgeted and the highest priority to follow up.<br>
+      ⑤ <strong>Jul 21 single-day ROI 2.33</strong> — @tayylormonet Lip Serum ROI 12.39 ($43 spend) and @sammycakes2020 Skin Tint ROI 5.38 firing on the same day proves that one great video beats a hundred average ones every time.
+    </div>
+  </div>
+  <div class="todo-box">
+    <div class="todo-title">✅ Next Week To-Do</div>
+    <div class="todo-row"><span class="todo-tag tt-g">Scale</span><span>Deep Cleanse: daily budget $20→$100. Hit rate 59%, ROI 3.94 — the single most underinvested product right now.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-g">Scale</span><span>Powder Found.: continue scaling @christianjohnson2022, add 2–3 new videos in the same style (immediate on-face application, no build-up).</span></div>
+    <div class="todo-row"><span class="todo-tag tt-g">Scale</span><span>Blackhead Clay: manually push budget to @wellnessbenefitsonly and @branttakes — don't wait for the algorithm to allocate naturally.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-g">Scale</span><span>Skin Tint: @8balltrina CPM $12, ROI 2.22 — scale up and test capacity.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-o">Adjust</span><span>Lip Serum: cut @tasha_renee81's budget sharply ($683, ROI 0.93). Redirect to @tayylormonet and @evesillusions.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-o">Adjust</span><span>Skin Tint: pause @sammycakes2020's second video. Consolidate budget into the first video and @lesettey.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-b">Content</span><span>Mugwort Clay urgently needs new videos: @samjeffhop style (direct on-face application, no narration). Single-video dependency is a real risk.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-b">Content</span><span>Lip Serum new direction: follow @tayylormonet — open directly with application in natural light, no narration, let the colour do the talking.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-r">Pause</span><span>Serum Bundle + Moist Bundle: stop both. Two weeks at ROI 0.1–0.2. Frees up ~$454/week to redirect.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-r">Pause</span><span>Blackhead Clay: do not increase @dndjsxxx01's budget. Historically poor ROI across all weeks.</span></div>
+  </div>
+</div>
+
+<div class="footer">Glad2Glow · G2G TTS US · July Creator Report W3 · Data through Jul 21, 2026 · Internal Use</div>
+</div>
+</body>
+</html>
