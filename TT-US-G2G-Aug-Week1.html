@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>G2G TTS US · August Creator Report W1 + July Summary</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f4f0; color:#1a1a18; font-size:14px; line-height:1.7; }
+.page { max-width:980px; margin:0 auto; padding:36px 24px 56px; }
+.header-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; }
+.header h1 { font-size:22px; font-weight:800; }
+.header h1 span { color:#1d9e75; }
+.header-sub { font-size:12px; color:#6b7280; margin-top:4px; }
+.header-date { font-size:11px; color:#9ca3af; text-align:right; }
+.divider { height:1px; background:#e5e7eb; margin:14px 0 0; }
+.sec { font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:#9ca3af; margin:28px 0 12px; display:flex; align-items:center; gap:8px; }
+.sec::after { content:''; flex:1; height:1px; background:#e5e7eb; }
+
+/* KPIs */
+.kpi-row { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:10px; }
+.kpi-row-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:10px; }
+.kpi { background:#fff; border-radius:10px; border:0.5px solid #e5e7eb; padding:12px 14px; }
+.kpi-label { font-size:10px; color:#9ca3af; font-weight:600; margin-bottom:3px; }
+.kpi-val { font-size:20px; font-weight:800; }
+.kv-g { color:#059669; } .kv-b { color:#2563eb; } .kv-o { color:#d97706; } .kv-r { color:#dc2626; }
+.kpi-sub { font-size:10px; color:#9ca3af; margin-top:2px; }
+.up { color:#059669; font-weight:700; } .dn { color:#dc2626; font-weight:700; }
+
+/* Ins */
+.ins { border-radius:10px; padding:12px 16px; font-size:12px; line-height:1.7; margin-bottom:9px; }
+.ins-g { background:#ecfdf5; border-left:3px solid #059669; }
+.ins-o { background:#fffbeb; border-left:3px solid #d97706; }
+.ins-r { background:#fff1f2; border-left:3px solid #dc2626; }
+.ins-b { background:#eff6ff; border-left:3px solid #2563eb; }
+.ins-gray { background:#f9fafb; border-left:3px solid #9ca3af; }
+.ins strong { font-weight:700; }
+
+/* Daily */
+.daily-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:6px; margin-bottom:4px; }
+.day-card { background:#fff; border-radius:8px; border:0.5px solid #e5e7eb; padding:9px 8px; text-align:center; }
+.day-label { font-size:9px; color:#9ca3af; font-weight:700; text-transform:uppercase; margin-bottom:3px; }
+.day-roi { font-size:16px; font-weight:800; }
+.day-sub { font-size:9px; color:#6b7280; margin-top:2px; line-height:1.5; }
+.roi-g { color:#059669; font-weight:700; } .roi-w { color:#d97706; font-weight:700; } .roi-r { color:#dc2626; font-weight:700; }
+
+/* Jul summary table */
+.jul-tbl { width:100%; border-collapse:collapse; background:#fff; border-radius:10px; overflow:hidden; border:0.5px solid #e5e7eb; margin-bottom:10px; font-size:11.5px; }
+.jul-tbl th { background:#1a1a18; color:#fff; padding:7px 10px; font-size:10px; font-weight:600; text-align:right; white-space:nowrap; }
+.jul-tbl th:first-child { text-align:left; }
+.jul-tbl td { padding:7px 10px; border-bottom:0.5px solid #f3f4f6; text-align:right; }
+.jul-tbl td:first-child { text-align:left; font-weight:600; }
+.jul-tbl tr:last-child td { border-bottom:none; }
+.jul-tbl .total-row { background:#f5f4f0; font-weight:700; }
+.g { color:#059669; font-weight:700; } .r { color:#dc2626; font-weight:700; } .y { color:#d97706; font-weight:700; }
+.roi-cell { font-size:10px; font-weight:700; display:block; }
+
+/* OOS impact */
+.oos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:10px; }
+.oos-card { background:#fff1f2; border:0.5px solid #fecdd3; border-radius:10px; padding:13px 15px; }
+.oos-name { font-size:13px; font-weight:700; color:#9f1239; margin-bottom:8px; }
+.oos-row { display:flex; justify-content:space-between; font-size:11.5px; padding:3px 0; border-bottom:0.5px solid rgba(220,38,38,.1); }
+.oos-row:last-child { border-bottom:none; }
+.oos-label { color:#6b7280; }
+.oos-val { font-weight:700; }
+
+/* 7-day plan cards */
+.plan7-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:10px; }
+.plan7-card { background:#fff; border-radius:10px; border:0.5px solid #e5e7eb; overflow:hidden; }
+.plan7-head { padding:10px 13px; border-bottom:0.5px solid #f3f4f6; display:flex; justify-content:space-between; align-items:center; }
+.plan7-head.good { background:#ecfdf5; }
+.plan7-head.warn { background:#fffbeb; }
+.plan7-head.bad { background:#fff1f2; }
+.plan7-name { font-size:12px; font-weight:700; }
+.plan7-badge { font-size:10px; font-weight:700; padding:2px 8px; border-radius:20px; }
+.badge-g { background:#d1fae5; color:#065f46; }
+.badge-y { background:#fef3c7; color:#92400e; }
+.badge-r { background:#fee2e2; color:#991b1b; }
+.plan7-body { padding:11px 13px; font-size:11.5px; color:#374151; line-height:1.7; }
+.plan7-row { display:flex; justify-content:space-between; padding:3px 0; border-bottom:0.5px solid #f9fafb; }
+.plan7-row:last-of-type { border-bottom:none; }
+.plan7-label { color:#9ca3af; font-size:10px; }
+.plan7-val { font-weight:700; font-size:12px; }
+.plan7-insight { background:#f9fafb; border-radius:6px; padding:7px 10px; margin-top:8px; font-size:11px; line-height:1.6; }
+.plan7-insight strong { font-weight:700; color:#1a1a18; }
+
+/* Top 10 table */
+.top-tbl { width:100%; border-collapse:collapse; background:#fff; border-radius:10px; overflow:hidden; border:0.5px solid #e5e7eb; margin-bottom:10px; }
+.top-tbl th { background:#1a1a18; color:#fff; padding:7px 10px; font-size:10px; font-weight:600; text-align:right; white-space:nowrap; }
+.top-tbl th:first-child,.top-tbl th:nth-child(2) { text-align:left; }
+.top-tbl td { padding:7px 10px; border-bottom:0.5px solid #f3f4f6; font-size:11px; text-align:right; vertical-align:top; }
+.top-tbl td:first-child { text-align:center; font-weight:800; color:#9ca3af; font-size:13px; }
+.top-tbl td:nth-child(2) { text-align:left; }
+.top-tbl tr:last-child td { border-bottom:none; }
+.top-tbl .warn-row td { background:#fff8f8; }
+.creator-cell { font-size:12px; font-weight:700; color:#1a1a18; }
+.title-cell { font-size:10px; color:#6b7280; font-style:italic; margin-top:2px; }
+.tt-link { font-size:10px; color:#2563eb; text-decoration:none; background:#eff6ff; border-radius:4px; padding:1px 6px; margin-top:4px; display:inline-block; }
+.prod-pill { font-size:10px; font-weight:700; padding:1px 7px; border-radius:20px; background:#f3f4f6; color:#374151; display:inline-block; margin-bottom:3px; }
+.roi-warn { color:#dc2626; font-weight:700; }
+.roi-ok { color:#059669; font-weight:700; }
+.roi-mid { color:#d97706; font-weight:700; }
+
+/* Product creative cards */
+.prod-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.pc-card { background:#fff; border-radius:10px; border:0.5px solid #e5e7eb; overflow:hidden; }
+.pc-head { padding:11px 14px; display:flex; justify-content:space-between; align-items:center; border-bottom:0.5px solid #f3f4f6; }
+.pc-head.green { background:#ecfdf5; } .pc-head.yellow { background:#fffbeb; }
+.pc-head.blue { background:#eff6ff; } .pc-head.orange { background:#fff7ed; }
+.pc-name { font-size:13px; font-weight:700; }
+.pc-badge { font-size:11px; font-weight:700; padding:2px 9px; border-radius:20px; }
+.pc-body { padding:12px 14px; }
+.pc-stats { display:flex; gap:12px; margin-bottom:8px; flex-wrap:wrap; }
+.pc-s-l { font-size:9px; color:#9ca3af; text-transform:uppercase; }
+.pc-s-v { font-size:13px; font-weight:700; }
+.pc-insight { font-size:11.5px; color:#374151; line-height:1.7; background:#f9fafb; border-radius:7px; padding:8px 11px; margin-bottom:8px; }
+.pc-insight strong { font-weight:700; color:#1a1a18; }
+.vid-row { border-top:0.5px solid #f3f4f6; padding:8px 14px; display:grid; grid-template-columns:1fr auto; gap:8px; align-items:start; }
+.vr-name { font-size:12px; font-weight:700; margin-bottom:2px; }
+.vr-title { font-size:10.5px; color:#6b7280; font-style:italic; margin-bottom:4px; }
+.vr-metrics { display:flex; gap:8px; flex-wrap:wrap; }
+.vm { font-size:10px; color:#6b7280; } .vm span { color:#9ca3af; }
+.vr-link { font-size:10px; color:#2563eb; text-decoration:none; background:#eff6ff; border-radius:4px; padding:1px 6px; margin-top:3px; display:inline-block; }
+.vr-right { text-align:right; min-width:72px; }
+.vr-roi { font-size:14px; font-weight:800; }
+.vr-orders { font-size:10px; color:#9ca3af; }
+.vr-tag { font-size:9px; font-weight:700; padding:1px 6px; border-radius:20px; margin-top:3px; display:inline-block; }
+.tag-g { background:#d1fae5; color:#065f46; } .tag-r { background:#fee2e2; color:#991b1b; }
+.tag-b { background:#dbeafe; color:#1e40af; } .tag-o { background:#fef3c7; color:#92400e; }
+
+/* Creative metrics table */
+.cm-tbl { width:100%; border-collapse:collapse; background:#fff; border-radius:10px; overflow:hidden; border:0.5px solid #e5e7eb; margin-bottom:10px; }
+.cm-tbl th { background:#1a1a18; color:#fff; padding:7px 10px; font-size:10px; font-weight:600; text-align:right; }
+.cm-tbl th:first-child { text-align:left; }
+.cm-tbl td { padding:7px 10px; border-bottom:0.5px solid #f3f4f6; font-size:11.5px; text-align:right; }
+.cm-tbl td:first-child { text-align:left; font-weight:600; }
+.cm-tbl tr:last-child td { border-bottom:none; }
+.cm-tbl .highlight-row { background:#f0fdf4; font-weight:600; }
+
+/* Todo */
+.todo-wrap { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.todo-box { background:#fff; border-radius:10px; border:0.5px solid #e5e7eb; padding:16px 18px; }
+.todo-title { font-size:12px; font-weight:700; margin-bottom:10px; padding-bottom:8px; border-bottom:0.5px solid #f3f4f6; }
+.todo-row { display:flex; gap:8px; padding:5px 0; border-bottom:0.5px solid #f9fafb; font-size:12px; align-items:flex-start; }
+.todo-row:last-child { border-bottom:none; }
+.todo-tag { font-size:10px; font-weight:700; padding:2px 8px; border-radius:20px; flex-shrink:0; margin-top:2px; }
+.tt-g { background:#d1fae5; color:#065f46; } .tt-o { background:#fef3c7; color:#92400e; }
+.tt-r { background:#fee2e2; color:#991b1b; } .tt-b { background:#dbeafe; color:#1e40af; }
+
+.footer { text-align:center; font-size:10px; color:#d1d5db; margin-top:44px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- Header -->
+<div class="header-top">
+  <div class="header">
+    <h1>G2G TTS US · <span>August Creator Report W1 | Aug 1–6</span></h1>
+    <div class="header-sub">Includes July Monthly Summary · Data through Aug 6, 2026</div>
+  </div>
+  <div class="header-date">Generated: Aug 7, 2026<br>Source: Gmax Backend</div>
+</div>
+<div class="divider"></div>
+
+<!-- PART 1: July Summary -->
+<div class="sec">📅 July Monthly Summary</div>
+
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="kpi-label">July GMV</div>
+    <div class="kpi-val kv-g">$67,161</div>
+    <div class="kpi-sub">≈ ¥483,559 · Daily avg $2,166</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">July Spend</div>
+    <div class="kpi-val kv-b">$41,434</div>
+    <div class="kpi-sub">Daily avg $1,337</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Month ROI</div>
+    <div class="kpi-val kv-g">1.62</div>
+    <div class="kpi-sub">Weighted monthly ROI</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Total Orders</div>
+    <div class="kpi-val kv-b">5,031</div>
+    <div class="kpi-sub">Daily avg 162 orders</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Target Completion</div>
+    <div class="kpi-val kv-g">96.7%</div>
+    <div class="kpi-sub">Target ¥500K ≈ $69K</div>
+  </div>
+</div>
+
+<div class="ins ins-g">
+  <strong>July in review:</strong> ROI climbed from 1.19 in W1 to 2.01 in W4. Clay Stick 2pcs launched from zero and hit $5,929 GMV in W4 — the week's #1 product. Powder Found. improved four consecutive weeks (ROI 0.86→2.54). Target completion 96.7%. August, push further.
+</div>
+
+<!-- Jul weekly breakdown -->
+<div class="sec">July Product Weekly Breakdown</div>
+<table class="jul-tbl">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>W1 Jul1–7</th><th>W2 Jul8–14</th><th>W3 Jul15–21</th><th>W4 Jul22–28</th><th>W5 Jul29–31</th>
+      <th>Jul GMV</th><th>Jul ROI</th><th>Orders</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Skin Tint</td>
+      <td>$5,224<span class="roi-cell y">1.63</span></td>
+      <td>$4,799<span class="roi-cell y">1.73</span></td>
+      <td>$2,502<span class="roi-cell y">1.63</span></td>
+      <td>$3,210<span class="roi-cell g">1.94</span></td>
+      <td>$940<span class="roi-cell g">1.88</span></td>
+      <td><strong>$16,674</strong></td><td class="y">1.73</td><td>1,217</td>
+    </tr>
+    <tr>
+      <td>Clay Stick 2pcs 🔥</td>
+      <td class="y">—</td>
+      <td>$1,526<span class="roi-cell g">2.26</span></td>
+      <td>$2,006<span class="roi-cell g">2.36</span></td>
+      <td>$5,929<span class="roi-cell g">2.81</span></td>
+      <td>$1,360<span class="roi-cell g">2.57</span></td>
+      <td><strong>$10,821</strong></td><td class="g">2.59</td><td>707</td>
+    </tr>
+    <tr>
+      <td>Mugwort Clay</td>
+      <td>$1,146<span class="roi-cell y">1.77</span></td>
+      <td>$2,565<span class="roi-cell y">1.81</span></td>
+      <td>$2,770<span class="roi-cell y">1.82</span></td>
+      <td>$1,948<span class="roi-cell y">1.77</span></td>
+      <td>$1,033<span class="roi-cell g">2.00</span></td>
+      <td><strong>$9,461</strong></td><td class="y">1.82</td><td>795</td>
+    </tr>
+    <tr>
+      <td>Lip Serum</td>
+      <td>$1,255<span class="roi-cell g">2.35</span></td>
+      <td>$1,750<span class="roi-cell y">1.96</span></td>
+      <td>$3,519<span class="roi-cell y">1.84</span></td>
+      <td>$2,634<span class="roi-cell y">1.81</span></td>
+      <td>$127<span class="roi-cell y">1.20</span></td>
+      <td><strong>$9,285</strong></td><td class="y">1.90</td><td>710</td>
+    </tr>
+    <tr>
+      <td>Volcano Clay Stick</td>
+      <td>$1,769<span class="roi-cell y">1.16</span></td>
+      <td>$3,293<span class="roi-cell y">1.78</span></td>
+      <td>$232<span class="roi-cell r">0.84</span></td>
+      <td>$2,034<span class="roi-cell g">2.25</span></td>
+      <td>$737<span class="roi-cell g">1.87</span></td>
+      <td><strong>$8,065</strong></td><td class="y">1.63</td><td>669</td>
+    </tr>
+    <tr>
+      <td>Powder Found. ↑↑↑</td>
+      <td>$527<span class="roi-cell r">0.86</span></td>
+      <td>$473<span class="roi-cell y">1.23</span></td>
+      <td>$1,021<span class="roi-cell g">2.46</span></td>
+      <td>$1,296<span class="roi-cell g">2.54</span></td>
+      <td>$471<span class="roi-cell g">2.24</span></td>
+      <td><strong>$3,788</strong></td><td class="y">1.78</td><td>273</td>
+    </tr>
+    <tr>
+      <td>Deep Cleanse</td>
+      <td>$337<span class="roi-cell r">0.97</span></td>
+      <td>$320<span class="roi-cell y">1.69</span></td>
+      <td>$550<span class="roi-cell g">3.94</span></td>
+      <td>$459<span class="roi-cell y">1.91</span></td>
+      <td>$241<span class="roi-cell g">2.35</span></td>
+      <td><strong>$1,907</strong></td><td class="g">1.87</td><td>156</td>
+    </tr>
+    <tr class="total-row">
+      <td>Total Account</td>
+      <td>$12,229<span class="roi-cell" style="color:#d97706">1.19</span></td>
+      <td>$16,290<span class="roi-cell" style="color:#d97706">1.53</span></td>
+      <td>$13,687<span class="roi-cell g">1.76</span></td>
+      <td>$18,345<span class="roi-cell g">2.01</span></td>
+      <td>$6,609<span class="roi-cell g">1.83</span></td>
+      <td><strong>$67,161</strong></td><td class="g" style="font-weight:800">1.62</td><td>5,031</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- PART 2: August W1 -->
+<div class="sec">📊 August W1 | Aug 1–6 (6 days)</div>
+
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="kpi-label">GMV</div>
+    <div class="kpi-val kv-o">$7,239</div>
+    <div class="kpi-sub">Daily avg $1,206 vs Jul avg $2,166 <span class="dn">↓44%</span></div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Ad Spend</div>
+    <div class="kpi-val kv-b">$4,315</div>
+    <div class="kpi-sub">Daily avg $719 vs Jul avg $1,337 <span class="dn">↓46%</span></div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">ROI</div>
+    <div class="kpi-val kv-o">1.68</div>
+    <div class="kpi-sub">vs Jul avg 1.62 <span class="up">↑slight improvement</span></div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">CPA</div>
+    <div class="kpi-val kv-g">$7.80</div>
+    <div class="kpi-sub">vs Jul avg $8.23 <span class="up">↓5.2%</span></div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Orders</div>
+    <div class="kpi-val kv-o">553</div>
+    <div class="kpi-sub">Daily avg 92 vs Jul 162 orders <span class="dn">↓43%</span></div>
+  </div>
+</div>
+
+<div class="ins ins-r">
+  <strong>The clay stick line going out of stock is the core reason for the Aug W1 GMV drop.</strong> Mugwort Clay, Volcano Clay Stick, and Clay Stick 2pcs combined for a daily GMV avg of $914 in July — in August these lines dropped to nearly zero, with only trace Mugwort Clay inventory still running. The combined daily gap is approximately <strong>$770 GMV</strong>, directly pulling the daily avg from $2,166 to $1,206. ROI and CPA actually improved slightly, showing the remaining campaigns are structurally healthy — the shortfall is purely a stock issue. <strong>Clay stick products are expected to restock in September. August's core job: keep the account stable through Skin Tint, Lip Serum, and Powder Found.</strong>
+</div>
+
+<!-- Daily -->
+<div class="sec">Daily Trend — Aug 1–6</div>
+<div class="daily-grid">
+  <div class="day-card">
+    <div class="day-label">Fri Aug 1</div>
+    <div class="day-roi roi-w">1.74</div>
+    <div class="day-sub">$1,526<br>117 orders</div>
+  </div>
+  <div class="day-card">
+    <div class="day-label">Sat Aug 2</div>
+    <div class="day-roi roi-w">1.74</div>
+    <div class="day-sub">$1,586<br>123 orders</div>
+  </div>
+  <div class="day-card">
+    <div class="day-label">Sun Aug 3</div>
+    <div class="day-roi roi-w">1.60</div>
+    <div class="day-sub">$1,288<br>96 orders</div>
+  </div>
+  <div class="day-card">
+    <div class="day-label">Mon Aug 4</div>
+    <div class="day-roi roi-w">1.38</div>
+    <div class="day-sub">$1,172<br>90 orders</div>
+  </div>
+  <div class="day-card">
+    <div class="day-label">Tue Aug 5</div>
+    <div class="day-roi roi-g">1.93</div>
+    <div class="day-sub">$914<br>70 orders</div>
+  </div>
+  <div class="day-card" style="border-color:#059669">
+    <div class="day-label">Wed Aug 6</div>
+    <div class="day-roi roi-g">1.88</div>
+    <div class="day-sub">$753<br>57 orders</div>
+  </div>
+</div>
+<div class="ins ins-b" style="margin-top:10px">
+  <strong>Aug 5–6 (Tue–Wed) ROI rebounded clearly to 1.88–1.93</strong>, though total GMV volume is still small. Both 7-day plans (Lip Serum and Powder Found.) are still in their learning phase — spending is up but GMV hasn't fully caught up yet. Expect gradual stabilisation over the coming days.
+</div>
+
+<!-- OOS impact -->
+<div class="sec">Clay Stick OOS Impact Analysis</div>
+<div class="oos-grid">
+  <div class="oos-card">
+    <div class="oos-name">Mugwort Clay</div>
+    <div class="oos-row"><span class="oos-label">Jul daily GMV</span><span class="oos-val">$305</span></div>
+    <div class="oos-row"><span class="oos-label">Aug daily GMV</span><span class="oos-val r">$101</span></div>
+    <div class="oos-row"><span class="oos-label">Daily gap</span><span class="oos-val r">-$204</span></div>
+    <div class="oos-row"><span class="oos-label">Status</span><span class="oos-val" style="color:#d97706">Trace inventory running</span></div>
+  </div>
+  <div class="oos-card">
+    <div class="oos-name">Volcano Clay Stick</div>
+    <div class="oos-row"><span class="oos-label">Jul daily GMV</span><span class="oos-val">$260</span></div>
+    <div class="oos-row"><span class="oos-label">Aug daily GMV</span><span class="oos-val r">$0</span></div>
+    <div class="oos-row"><span class="oos-label">Daily gap</span><span class="oos-val r">-$260</span></div>
+    <div class="oos-row"><span class="oos-label">Status</span><span class="oos-val r">Fully OOS, paused</span></div>
+  </div>
+  <div class="oos-card">
+    <div class="oos-name">Clay Stick 2pcs</div>
+    <div class="oos-row"><span class="oos-label">Jul daily GMV</span><span class="oos-val">$349</span></div>
+    <div class="oos-row"><span class="oos-label">Aug daily GMV</span><span class="oos-val r">$40</span></div>
+    <div class="oos-row"><span class="oos-label">Daily gap</span><span class="oos-val r">-$309</span></div>
+    <div class="oos-row"><span class="oos-label">Status</span><span class="oos-val r">OOS, paused</span></div>
+  </div>
+</div>
+<div class="ins ins-gray">
+  The three clay stick lines are losing a combined <strong>~$773 GMV per day</strong>, representing <strong>35.7%</strong> of July's daily average. When stock returns in September, priority is to restart Clay Stick 2pcs (ROI 2.59, July's highest-efficiency product) and Mugwort Clay, with new creatives ready for @samjeffhop. For Volcano Clay Stick, push @wellnessbenefitsonly and @branttakes — do not restore @dndjsxxx01's budget.
+</div>
+
+<!-- 7-day plan analysis -->
+<div class="sec">3 Seven-Day Campaign Plans — Performance Comparison</div>
+<div class="plan7-grid">
+
+  <div class="plan7-card">
+    <div class="plan7-head good">
+      <div class="plan7-name">Lip Serum 7-Day Plan ✅</div>
+      <span class="plan7-badge badge-g">ROI 1.77</span>
+    </div>
+    <div class="plan7-body">
+      <div class="plan7-row"><span class="plan7-label">Aug Spend</span><span class="plan7-val">$1,463</span></div>
+      <div class="plan7-row"><span class="plan7-label">Aug GMV</span><span class="plan7-val">$2,589</span></div>
+      <div class="plan7-row"><span class="plan7-label">Aug daily GMV</span><span class="plan7-val" style="color:#059669">$432</span></div>
+      <div class="plan7-row"><span class="plan7-label">Aug daily spend</span><span class="plan7-val">$244</span></div>
+      <div class="plan7-row"><span class="plan7-label">Jul old plan daily GMV</span><span class="plan7-val">$300</span></div>
+      <div class="plan7-row"><span class="plan7-label">Jul old plan ROI</span><span class="plan7-val">1.90</span></div>
+      <div class="plan7-insight"><strong>Daily GMV $300→$432, +44%.</strong> Lowering the ROI target on the 7-day plan prompted the system to allocate more budget, lifting daily orders from 23 to 33. The ROI dip from 1.90 to 1.77 is expected — trading a slightly lower per-campaign ROI for significantly higher absolute GMV. Direction is correct.</div>
+    </div>
+  </div>
+
+  <div class="plan7-card">
+    <div class="plan7-head good">
+      <div class="plan7-name">Powder Found. 7-Day Plan ✅</div>
+      <span class="plan7-badge badge-g">Daily avg +67%</span>
+    </div>
+    <div class="plan7-body">
+      <div class="plan7-row"><span class="plan7-label">Aug Spend</span><span class="plan7-val">$811</span></div>
+      <div class="plan7-row"><span class="plan7-label">Aug GMV</span><span class="plan7-val">$1,222</span></div>
+      <div class="plan7-row"><span class="plan7-label">Aug daily GMV</span><span class="plan7-val" style="color:#059669">$204</span></div>
+      <div class="plan7-row"><span class="plan7-label">Aug daily spend</span><span class="plan7-val">$135</span></div>
+      <div class="plan7-row"><span class="plan7-label">Jul old plan daily GMV</span><span class="plan7-val">$122</span></div>
+      <div class="plan7-row"><span class="plan7-label">Jul old plan ROI</span><span class="plan7-val">1.78</span></div>
+      <div class="plan7-insight"><strong>Daily GMV $122→$204, +67%.</strong> Most significant scaling result of the three plans. @christianjohnson2022 saw large gains in both impressions and orders under the new plan. ROI slipped from 1.78 to 1.51, but GMV nearly doubled — in line with expectations.</div>
+    </div>
+  </div>
+
+  <div class="plan7-card">
+    <div class="plan7-head bad">
+      <div class="plan7-name">Moist Bundle 7-Day Plan ❌</div>
+      <span class="plan7-badge badge-r">ROI 0.26</span>
+    </div>
+    <div class="plan7-body">
+      <div class="plan7-row"><span class="plan7-label">Aug Spend</span><span class="plan7-val r">$286</span></div>
+      <div class="plan7-row"><span class="plan7-label">Aug GMV</span><span class="plan7-val r">$74</span></div>
+      <div class="plan7-row"><span class="plan7-label">Orders</span><span class="plan7-val r">5 orders</span></div>
+      <div class="plan7-row"><span class="plan7-label">ROI</span><span class="plan7-val r">0.26</span></div>
+      <div class="plan7-row"><span class="plan7-label">Jul equivalent plan ROI</span><span class="plan7-val r">0.24</span></div>
+      <div class="plan7-insight">The 7-day model cannot fix a product bundle with no real perceived value. Moist Bundle fails regardless of campaign structure and keeps burning budget. <strong>Recommend pausing this week.</strong></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Aug top 10 -->
+<div class="sec">Aug W1 Top 12 Creatives (by Impressions)</div>
+<table class="top-tbl">
+  <thead>
+    <tr><th>#</th><th>Creator / Video</th><th>Impressions</th><th>GMV</th><th>ROI</th><th>Orders</th><th>CVR</th><th>2s%</th><th>CPM</th><th>CTR</th></tr>
+  </thead>
+  <tbody>
+    <tr class="warn-row">
+      <td>1</td>
+      <td><span class="prod-pill">Lip Serum</span><div class="creator-cell">@sngweo ⚠</div><div class="title-cell">"genuinely the cutest colour and packaging ever #fyp #viral"</div><a href="https://www.tiktok.com/@sngweo/video/7652059371756588295" target="_blank" class="tt-link">↗ View on TikTok</a></td>
+      <td>45,796</td><td>$152</td><td class="roi-warn">0.63</td><td>12</td><td>0.7%</td><td>40.3%</td><td>$5.3</td><td>3.3%</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><span class="prod-pill">Lip Serum</span><div class="creator-cell">@__catsuit</div><div class="title-cell">"🌸💘😍✨❤️‍🔥#lipgloss #lipbalm #lipstick #lipstain #liptok"</div><a href="https://www.tiktok.com/@__catsuit/video/7666110390694120734" target="_blank" class="tt-link">↗ View on TikTok</a></td>
+      <td>34,590</td><td>$292</td><td class="roi-mid">1.21</td><td>23</td><td>0.9%</td><td>17.5%</td><td>$7.0</td><td>4.7%</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><span class="prod-pill">Powder Found.</span><div class="creator-cell">@christianjohnson2022 🔥</div><div class="title-cell">"@Glad2Glow.US #glad2glow #powderfoundation #foundation"</div><a href="https://www.tiktok.com/@christianjohnson2022/video/7662938684060126495" target="_blank" class="tt-link">↗ View on TikTok</a></td>
+      <td>32,157</td><td>$664</td><td class="roi-mid">1.18</td><td>50</td><td>3.6%</td><td>49.0%</td><td>$17.5</td><td>3.6%</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><span class="prod-pill">Mugwort Clay</span><div class="creator-cell">@samjeffhop 🏆</div><div class="title-cell">Evergreen main video (no title)</div><a href="https://www.tiktok.com/@samjeffhop/video/7650332566695808269" target="_blank" class="tt-link">↗ View on TikTok</a></td>
+      <td>27,737</td><td>$336</td><td class="roi-ok">3.11</td><td>29</td><td>0.5%</td><td>26.0%</td><td>$3.9</td><td>1.7%</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><span class="prod-pill">Deep Cleanse</span><div class="creator-cell">@clarahyee</div><div class="title-cell">"Get this for your boyfriend or husband so they can get clear skin"</div><a href="https://www.tiktok.com/@clarahyee/video/7645137133241388301" target="_blank" class="tt-link">↗ View on TikTok</a></td>
+      <td>14,958</td><td>$166</td><td class="roi-mid">1.48</td><td>13</td><td>0.7%</td><td>37.4%</td><td>$7.5</td><td>7.8%</td>
+    </tr>
+    <tr class="warn-row">
+      <td>6</td>
+      <td><span class="prod-pill">Lip Serum 2pcs</span><div class="creator-cell">@sngweo ⚠ Stopped</div><div class="title-cell">"genuinely the cutest colour and packaging ever #fyp #viral"</div><a href="https://www.tiktok.com/@sngweo/video/7652059371756588295" target="_blank" class="tt-link">↗ View on TikTok</a></td>
+      <td>13,917</td><td>$46</td><td class="roi-warn">0.59</td><td>2</td><td>0.3%</td><td>50.0%</td><td>$5.6</td><td>4.1%</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><span class="prod-pill">Lip Serum</span><div class="creator-cell">@gvibes.j</div><div class="title-cell">"These @Glad2Glow.US lip glosses are too good to choose just one"</div><a href="https://www.tiktok.com/@gvibes.j/video/7664389957515005215" target="_blank" class="tt-link">↗ View on TikTok</a></td>
+      <td>11,074</td><td>$178</td><td class="roi-mid">1.38</td><td>14</td><td>1.6%</td><td>31.3%</td><td>$11.7</td><td>5.2%</td>
+    </tr>
+    <tr class="warn-row">
+      <td>8</td>
+      <td><span class="prod-pill">Acne Cream</span><div class="creator-cell">@yulialenc ⚠</div><div class="title-cell">"Si tienes la piel propensa al acné, sabes lo difícil que..."</div><a href="https://www.tiktok.com/@yulialenc/video/7665706434708901150" target="_blank" class="tt-link">↗ View on TikTok</a></td>
+      <td>8,369</td><td>$15</td><td class="roi-warn">0.09</td><td>1</td><td>0.4%</td><td>17.4%</td><td>$20.6</td><td>5.3%</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><span class="prod-pill">Clay Stick 2pcs</span><div class="creator-cell">@wealth.with.laura</div><div class="title-cell">"If you've been skipping clay masks because they're too messy"</div><a href="https://www.tiktok.com/@wealth.with.laura/video/7663518923744169247" target="_blank" class="tt-link">↗ View on TikTok</a></td>
+      <td>7,019</td><td>$23</td><td class="roi-mid">1.08</td><td>2</td><td>0.6%</td><td>9.3%</td><td>$3.1</td><td>0.8%</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><span class="prod-pill">Peeling Gel 🆕</span><div class="creator-cell">@branttakes ✨</div><div class="title-cell">"my skin is poreless now 😩 @Glad2Glow.US #glad2glow #DealsForYou"</div><a href="https://www.tiktok.com/@branttakes/video/7644124063148903694" target="_blank" class="tt-link">↗ View on TikTok</a></td>
+      <td>6,981</td><td>$195</td><td class="roi-ok">3.05</td><td>16</td><td>1.6%</td><td>36.3%</td><td>$9.2</td><td>7.2%</td>
+    </tr>
+    <tr class="warn-row">
+      <td>11</td>
+      <td><span class="prod-pill">Powder Found.</span><div class="creator-cell">@rebecca.b.moor ⚠</div><div class="title-cell">"#glad2glow #powderfoundation #foundationreview #blurring"</div><a href="https://www.tiktok.com/@rebecca.b.moor/video/7667202609861676302" target="_blank" class="tt-link">↗ View on TikTok</a></td>
+      <td>6,009</td><td>$130</td><td class="roi-warn">0.82</td><td>10</td><td>5.6%</td><td>36.3%</td><td>$26.5</td><td>3.4%</td>
+    </tr>
+    <tr class="warn-row">
+      <td>12</td>
+      <td><span class="prod-pill">Lip Serum</span><div class="creator-cell">@home.body__ ⚠</div><div class="title-cell">"super quick & easy lip combo 💗🍒 @Glad2Glow  #lipbalm #liptok"</div><a href="https://www.tiktok.com/@home.body__/video/7664294997251968278" target="_blank" class="tt-link">↗ View on TikTok</a></td>
+      <td>3,947</td><td>$38</td><td class="roi-warn">0.79</td><td>3</td><td>1.6%</td><td>19.4%</td><td>$12.2</td><td>3.0%</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="ins ins-o">
+  <strong>⚠ Losing creatives to action this week:</strong> #1 @sngweo Lip Serum — 45.8K impressions at ROI 0.63, simultaneously running Lip Serum 2pcs at ROI 0.59 (#6) — both burning money. Pause Lip Serum 2pcs immediately and review @sngweo's Lip Serum budget or creative. #8 @yulialenc Spanish-language acne cream ROI 0.09 is the biggest drain — CPM $20.6, spent $173 to generate $15. Stop immediately.
+</div>
+
+<!-- Product creative analysis -->
+<div class="sec">Product Creative Analysis</div>
+<div class="prod-grid">
+
+  <!-- Skin Tint -->
+  <div class="pc-card">
+    <div class="pc-head green">
+      <div class="pc-name">Skin Tint</div>
+      <span class="pc-badge badge-g">ROI 2.36 · 94 orders</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-stats">
+        <div><div class="pc-s-l">Aug Spend</div><div class="pc-s-v">$559</div></div>
+        <div><div class="pc-s-l">Videos</div><div class="pc-s-v">257 videos</div></div>
+        <div><div class="pc-s-l">Hit rate</div><div class="pc-s-v" style="color:#dc2626">9%</div></div>
+        <div><div class="pc-s-l">Avg 2s</div><div class="pc-s-v" style="color:#dc2626">8.0%</div></div>
+      </div>
+      <div class="pc-insight">
+        ROI 2.36 is the highest in the account this week. <strong>@sammycakes2020's main video ROI 2.02 (27 orders), 2s rate 62.0% — still the highest in the account</strong>, no signs of decay even during OOS.<br><br>
+        But <strong>only 9% of 257 videos are converting, avg 2s rate just 8.0%</strong> — low-quality creatives diluting performance. Clean up non-converting videos and focus on @sammycakes2020 and @haimabby.      </div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@sammycakes2020 · Consistently strong</div>
+        <div class="vr-title">"Whoa can't believe a skin tint gave me this much coverage"</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>2s</span> <strong style="color:#059669">62.0%</strong></div>
+          <div class="vm"><span>CVR</span> 4.4%</div>
+          <div class="vm"><span>Spend</span> $180</div>
+        </div>
+        <a href="https://www.tiktok.com/@sammycakes2020/video/7657219264369249566" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-g">ROI 2.02</div><div class="vr-orders">27 orders</div><div class="vr-tag tag-g">Steady</div></div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@haimabby · High CVR</div>
+        <div class="vr-title">"This blurring skin tint is unbelievable!!! It makes my pores..."</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>CVR</span> <strong style="color:#059669">5.1%</strong></div>
+          <div class="vm"><span>2s</span> 30.0%</div>
+          <div class="vm"><span>Spend</span> $34</div>
+        </div>
+        <a href="https://www.tiktok.com/@haimabby/video/7647200398364675342" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-g">ROI 2.36</div><div class="vr-orders">6 orders</div><div class="vr-tag tag-b">High CVR</div></div>
+    </div>
+  </div>
+
+  <!-- Lip Serum -->
+  <div class="pc-card">
+    <div class="pc-head yellow">
+      <div class="pc-name">Lip Serum</div>
+      <span class="pc-badge badge-y">ROI 1.77 · 7-day plan scaling</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-stats">
+        <div><div class="pc-s-l">Aug Spend</div><div class="pc-s-v">$1,463</div></div>
+        <div><div class="pc-s-l">Videos</div><div class="pc-s-v" style="color:#dc2626">363 videos</div></div>
+        <div><div class="pc-s-l">Hit rate</div><div class="pc-s-v" style="color:#dc2626">11%</div></div>
+        <div><div class="pc-s-l">Avg 2s</div><div class="pc-s-v" style="color:#dc2626">7.7%</div></div>
+      </div>
+      <div class="pc-insight">
+        The 7-day plan delivered +44% daily GMV, but the underlying creative quality problem remains unsolved. <strong>Only 11% of 363 videos are converting, avg 2s rate 7.7% — a new low</strong> (Jul W4 was already 10.9%, Aug continues to slide).<br><br>
+        <strong>@__catsuit is the new discovery this week:</strong> 23 orders, ROI 1.21, 2s 17.5%, CVR 0.9% — all-emoji title, no narration, minimalist style. Still observing. <strong>@auritea CVR 7.2% is the highest Lip Serum CVR this week</strong>, just $66 spend, ROI 1.93. "The lip balm that's been living in my purse" — this lifestyle-feel opening works. Keep running.<br><br>
+        @sngweo 45.8K impressions at ROI 0.63 — the biggest drain. Must be addressed.
+      </div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@auritea · High CVR new direction 🆕</div>
+        <div class="vr-title">"The lip balm that's been living in my purse 🎀 #glad2glow"</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>CVR</span> <strong style="color:#059669">7.2%</strong></div>
+          <div class="vm"><span>2s</span> 25.9%</div>
+          <div class="vm"><span>Spend</span> $66</div>
+        </div>
+        <a href="https://www.tiktok.com/@auritea/video/7665910375853919501" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-g">ROI 1.93</div><div class="vr-orders">10 orders</div><div class="vr-tag tag-g">Lifestyle feel</div></div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@sngweo · Highest impressions, losing money ❌</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>Impressions</span> 45,796</div>
+          <div class="vm"><span>Spend</span> <strong style="color:#dc2626">$241</strong></div>
+        </div>
+        <a href="https://www.tiktok.com/@sngweo/video/7652059371756588295" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-r">ROI 0.63</div><div class="vr-orders">12 orders</div><div class="vr-tag tag-r">Cut budget</div></div>
+    </div>
+  </div>
+
+  <!-- Powder Found -->
+  <div class="pc-card">
+    <div class="pc-head green">
+      <div class="pc-name">Powder Found.</div>
+      <span class="pc-badge badge-g">ROI 1.51 · 7-day plan, daily GMV +67%</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-stats">
+        <div><div class="pc-s-l">Aug Spend</div><div class="pc-s-v">$811</div></div>
+        <div><div class="pc-s-l">Videos</div><div class="pc-s-v">65 videos</div></div>
+        <div><div class="pc-s-l">Hit rate</div><div class="pc-s-v roi-g">15%</div></div>
+        <div><div class="pc-s-l">Avg 2s</div><div class="pc-s-v roi-g">17.1%</div></div>
+      </div>
+      <div class="pc-insight">
+        Powder Found. has the best creative quality metrics of any product this week: hit rate 15%, avg 2s rate 17.1%, CVR 1.80% all above account average. The 7-day plan is working — daily GMV $122→$204, +67%.<br><br>
+        <strong>@christianjohnson2022 under the new plan: 32,157 impressions, 50 orders, CVR 3.6%, 2s 49.0% — still one of the most consistent creatives in the account</strong>. ROI dropped from 2.79 (July) to 1.18 because the 7-day plan increased spend and diluted per-campaign ROI — this is the expected volume-for-efficiency trade-off.<br><br>
+        <strong>@rebecca.b.moor ROI 0.82</strong> — CVR 5.6% is actually very high, but CPM $26.5 is too expensive. Try lowering the bid.
+      </div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@christianjohnson2022 · 7-day plan main driver</div>
+        <div class="vr-title">"@Glad2Glow.US #glad2glow #powderfoundation #foundation"</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>2s</span> <strong style="color:#059669">49.0%</strong></div>
+          <div class="vm"><span>CVR</span> 3.6%</div>
+          <div class="vm"><span>Spend</span> $562</div>
+        </div>
+        <a href="https://www.tiktok.com/@christianjohnson2022/video/7662938684060126495" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-w">ROI 1.18</div><div class="vr-orders">50 orders</div><div class="vr-tag tag-o">Scaling phase</div></div>
+    </div>
+  </div>
+
+  <!-- Mugwort Clay -->
+  <div class="pc-card">
+    <div class="pc-head green">
+      <div class="pc-name">Mugwort Clay</div>
+      <span class="pc-badge badge-g">ROI 3.11 · Trace stock, running efficiently</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-stats">
+        <div><div class="pc-s-l">Aug Spend</div><div class="pc-s-v">$190</div></div>
+        <div><div class="pc-s-l">Videos</div><div class="pc-s-v">50 videos</div></div>
+        <div><div class="pc-s-l">Hit rate</div><div class="pc-s-v roi-g">16%</div></div>
+        <div><div class="pc-s-l">CPM</div><div class="pc-s-v roi-g">$4.1</div></div>
+      </div>
+      <div class="pc-insight">
+        Despite nearly being OOS, <strong>@samjeffhop is running at ROI 3.11 — nearly double the 1.59 seen in Jul W4.</strong> With budget reduced, the algorithm precision-matches the most receptive audience with minimal spend. This is characteristic of the scarcity phase — once stock returns and budget scales back up, ROI will naturally settle to the 1.6–1.9 range. Expected and healthy.<br><br>
+        <strong>September restock strategy:</strong> Restore @samjeffhop's budget immediately, but have 1–2 new creatives ready as backup — this video has been running 10+ weeks.
+      </div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@samjeffhop · Precision efficient during OOS</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>Impressions</span> 27,737</div>
+          <div class="vm"><span>CPM</span> <strong style="color:#059669">$3.9</strong></div>
+          <div class="vm"><span>Spend</span> $108</div>
+        </div>
+        <a href="https://www.tiktok.com/@samjeffhop/video/7650332566695808269" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-g">ROI 3.11</div><div class="vr-orders">29 orders</div><div class="vr-tag tag-g">Precision efficient</div></div>
+    </div>
+  </div>
+
+  <!-- Peeling Gel surprise -->
+  <div class="pc-card">
+    <div class="pc-head orange">
+      <div class="pc-name">Peeling Gel 🆕 Surprise Breakout</div>
+      <span class="pc-badge badge-g">ROI 3.05 · @branttakes</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-stats">
+        <div><div class="pc-s-l">Impression rank</div><div class="pc-s-v">#10</div></div>
+        <div><div class="pc-s-l">Orders</div><div class="pc-s-v">16 orders</div></div>
+        <div><div class="pc-s-l">CVR</div><div class="pc-s-v roi-g">1.6%</div></div>
+        <div><div class="pc-s-l">2s</div><div class="pc-s-v roi-g">36.3%</div></div>
+      </div>
+      <div class="pc-insight">
+        An organic result — not part of any active campaign. <strong>@branttakes' "my skin is poreless now 😩" video broke out naturally</strong>, hitting ROI 3.05, CTR 7.2% (highest this week), 2s rate 36.3%, CPM $9.2. Peeling Gel has had almost no prior investment — this video shows real audience demand for the product.<br><br>
+        Recommendation: test scaling this video and watch whether other creators are also producing Peeling Gel content organically. If performance holds, consider adding it to a formal campaign plan.
+      </div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@branttakes · Organic breakout video</div>
+        <div class="vr-title">"my skin is poreless now 😩 @Glad2Glow.US #glad2glow #DealsForYouDays"</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>CTR</span> <strong style="color:#059669">7.2%</strong></div>
+          <div class="vm"><span>2s</span> 36.3%</div>
+          <div class="vm"><span>Spend</span> $64</div>
+        </div>
+        <a href="https://www.tiktok.com/@branttakes/video/7644124063148903694" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-g">ROI 3.05</div><div class="vr-orders">16 orders</div><div class="vr-tag tag-g">Organic breakout</div></div>
+    </div>
+  </div>
+
+  <!-- Deep Cleanse -->
+  <div class="pc-card">
+    <div class="pc-head green">
+      <div class="pc-name">Deep Cleanse</div>
+      <span class="pc-badge badge-g">ROI 2.35 · Highest hit rate</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-stats">
+        <div><div class="pc-s-l">Aug Spend</div><div class="pc-s-v">$204</div></div>
+        <div><div class="pc-s-l">Videos</div><div class="pc-s-v">22 videos</div></div>
+        <div><div class="pc-s-l">Hit rate</div><div class="pc-s-v roi-g">32%</div></div>
+        <div><div class="pc-s-l">Avg 2s</div><div class="pc-s-v roi-g">21.7%</div></div>
+      </div>
+      <div class="pc-insight">
+        Hit rate 32% is the highest of any product this week, with a lean creative pool (22 videos). <strong>@clarahyee's "gift angle" ROI 1.48 (13 orders)</strong> continues steady, CTR 7.8% also among the week's highest. A new untagged video appeared at ROI 5.89 (6 orders) — worth watching. <strong>Deep Cleanse is one of the most structurally efficient products in the account</strong> — small budget, high hit rate, ideal to scale up during the clay stick OOS period to help fill the GMV gap.
+      </div>
+    </div>
+    <div class="vid-row">
+      <div>
+        <div class="vr-name">@clarahyee · Gift angle, steady</div>
+        <div class="vr-title">"Get this for your boyfriend or husband so they can get clear skin"</div>
+        <div class="vr-metrics">
+          <div class="vm"><span>CTR</span> 7.8%</div>
+          <div class="vm"><span>2s</span> 37.4%</div>
+          <div class="vm"><span>Spend</span> $112</div>
+        </div>
+        <a href="https://www.tiktok.com/@clarahyee/video/7645137133241388301" target="_blank" class="vr-link">↗ View on TikTok</a>
+      </div>
+      <div class="vr-right"><div class="vr-roi roi-w">ROI 1.48</div><div class="vr-orders">13 orders</div><div class="vr-tag tag-b">Steady</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Creative metrics table -->
+<div class="sec">Creative Quality Overview — Aug W1 vs Jul W4</div>
+<table class="cm-tbl">
+  <thead>
+    <tr><th>Product</th><th>Videos</th><th>Hit rate</th><th>CPM</th><th>CVR</th><th>Avg 2s</th><th>Aug Spend</th><th>Note</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Deep Cleanse</td><td>22 videos</td><td class="g">32%</td><td>$8.3</td><td class="g">1.05%</td><td class="g">21.7%</td><td>$190</td><td style="text-align:left;font-size:11px;color:#059669">✅ Highest hit rate — keep going</td></tr>
+    <tr><td>Mugwort Clay</td><td>50 videos</td><td class="g">16%</td><td class="g">$4.1</td><td>0.14%</td><td class="y">5.4%</td><td>$153</td><td style="text-align:left;font-size:11px;color:#d97706">⚠ Low stock, ROI paradoxically high</td></tr>
+    <tr><td>Powder Found.</td><td>65 videos</td><td class="g">15%</td><td>$18.7</td><td class="g">1.80%</td><td class="y">17.1%</td><td>$804</td><td style="text-align:left;font-size:11px;color:#059669">✅ 7-day plan working</td></tr>
+    <tr><td>Lip Serum</td><td class="r">363 videos</td><td class="y">11%</td><td>$9.1</td><td class="r">0.40%</td><td class="r">7.7%</td><td>$1,421</td><td style="text-align:left;font-size:11px;color:#dc2626">❌ Most videos, worst quality</td></tr>
+    <tr><td>Skin Tint</td><td class="r">257 videos</td><td class="r">9%</td><td>$21.0</td><td class="r">0.59%</td><td class="r">8.0%</td><td>$494</td><td style="text-align:left;font-size:11px;color:#dc2626">❌ Heavily diluted by low-quality videos</td></tr>
+    <tr><td>Clay Stick 2pcs</td><td>45 videos</td><td class="r">7%</td><td class="g">$3.9</td><td class="r">0.01%</td><td class="r">4.5%</td><td>$41</td><td style="text-align:left;font-size:11px;color:#d97706">⚠ OOS, maintain minimum</td></tr>
+    <tr class="highlight-row"><td>Account Average</td><td>1,172 videos</td><td class="r">9%</td><td>$11.0</td><td class="r">0.40%</td><td class="r">7.6%</td><td>$4,315</td><td style="text-align:left;font-size:11px;color:#dc2626">Overall quality low, needs cleanup</td></tr>
+  </tbody>
+</table>
+
+<!-- Summary & Todo -->
+<div class="sec">Summary & Next Week Direction</div>
+<div class="todo-wrap">
+  <div class="todo-box">
+    <div class="todo-title">📋 Aug W1 Key Takeaways</div>
+    <div style="font-size:12px;color:#374151;line-height:1.9">
+      ① <strong>GMV decline is driven entirely by clay stick OOS.</strong> Daily avg GMV dropped $2,166→$1,206, but ROI 1.68 and CPA $7.80 are actually better than July averages — showing non-clay campaigns are getting more efficient.<br>
+      ② <strong>7-day plans validated:</strong> Lip Serum daily GMV +44%, Powder Found. daily GMV +67% — both scaled successfully. Minor ROI dips are expected trade-offs for higher absolute GMV. Moist Bundle 7-day ROI 0.26 — pause immediately.<br>
+      ③ <strong>Peeling Gel surprise breakout:</strong> @branttakes organically hit ROI 3.05 (16 orders), CTR 7.2% — the highest this week. Almost no prior investment — worth testing seriously.<br>
+      ④ <strong>Mugwort Clay OOS period ROI 3.11:</strong> Reduced budget forces the algorithm into precision mode, improving efficiency. When restocking in September, increase budget gradually rather than all at once.<br>
+      ⑤ <strong>Creative quality declining account-wide:</strong> Hit rate 9%, avg 2s rate 7.6%. Lip Serum (363 videos, 2s 7.7%) is the main drag. Adding more volume is not the answer.
+    </div>
+  </div>
+  <div class="todo-box">
+    <div class="todo-title">✅ Next Week To-Do</div>
+    <div class="todo-row"><span class="todo-tag tt-r">Immediate</span><span>Pause Moist Bundle 7-day plan — ROI 0.26 for 2+ months, frees up ~$48/day</span></div>
+    <div class="todo-row"><span class="todo-tag tt-r">Immediate</span><span>@sngweo Lip Serum: cut budget or pause — 45.8K impressions at ROI 0.63. Stop Lip Serum 2pcs campaign entirely.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-r">Immediate</span><span>Stop @yulialenc acne cream — ROI 0.09, CPM $20.6, spent $173 to generate $15 GMV.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-g">Scale</span><span>Deep Cleanse: hit rate 32% — highest in the account. Best GMV replacement during clay stick OOS.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-g">Test</span><span>Peeling Gel @branttakes ROI 3.05 — scale up and test if it holds at higher budget.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-b">creatives</span><span>Lip Serum: stop adding volume. New creatives must follow lifestyle-feel opening direction (reference @auritea). Target avg 2s rate &gt;20%.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-b">Content</span><span>Skin Tint: stop funding low-quality creatives. New videos must follow @sammycakes2020's approach — on-face in the first 2 seconds, no build-up.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-b">Prep</span><span>September restock: prepare at least 2 new videos in @samjeffhop's style for Mugwort Clay, plus new Volcano Clay Stick content in @wellnessbenefitsonly / @branttakes direction.</span></div>
+    <div class="todo-row"><span class="todo-tag tt-o">Monitor</span><span>Continue watching the Lip Serum and Powder Found. 7-day plans. Expect gradual stabilisation after Aug 7–10, then reassess scaling.</span></div>
+  </div>
+</div>
+
+<div class="footer">Glad2Glow · G2G TTS US · August Creator Report W1 · Includes July Monthly Summary · Data through Aug 6, 2026 · Internal Use</div>
+</div>
+</body>
+</html>
