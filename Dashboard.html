@@ -234,6 +234,7 @@ tr:hover td{background:#fdf5f6}
     <div class="sb-item" onclick="gotoPage('products',this)" title="Products"><span class="icon">📦</span><span class="label" data-en="Products" data-zh="产品">Products</span></div>
     <div class="sb-item" onclick="gotoPage('creatives',this)" title="Creatives & KOLs"><span class="icon">🎬</span><span class="label" data-en="Creatives & KOLs" data-zh="素材 & 达人">Creatives & KOLs</span></div>
     <div class="sb-item" onclick="gotoPage('alerts',this)" title="Alerts"><span class="icon">⚡</span><span class="label" data-en="Alerts" data-zh="预警">Alerts</span></div>
+    <div class="sb-item" onclick="gotoPage('reports',this)" title="Reports"><span class="icon">📋</span><span class="label" data-en="Reports" data-zh="周报库">Reports</span></div>
   </nav>
   <div class="sb-bottom">
     <div class="sb-update" id="sbUpdate"></div>
@@ -485,6 +486,22 @@ tr:hover td{background:#fdf5f6}
     </div>
   </div>
 
+  <!-- ══ REPORTS ══ -->
+  <div class="page" id="page-reports">
+    <div style="height:16px"></div>
+    <div class="sec">
+      <div class="sec-title" data-en="WEEKLY REPORTS ARCHIVE" data-zh="周报归档">WEEKLY REPORTS ARCHIVE</div>
+      <div class="sec-actions">
+        <select class="flt" id="rep-filter" onchange="renderReports()">
+          <option value="all" data-en="All" data-zh="全部">All</option>
+          <option value="Aug">August 2026</option>
+          <option value="Jul">July 2026</option>
+        </select>
+      </div>
+    </div>
+    <div id="reportsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px"></div>
+  </div>
+
   <!-- ══ ALERTS ══ -->
   <div class="page" id="page-alerts">
     <div style="height:16px"></div>
@@ -520,11 +537,12 @@ function gotoPage(id,el){
   document.getElementById('page-'+id).classList.add('active');
   document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
   if(el)el.classList.add('active');
-  const titles={dash:'Dashboard',products:'Products',creatives:'Creatives & KOLs',alerts:'Alerts'};
+  const titles={dash:'Dashboard',products:'Products',creatives:'Creatives & KOLs',alerts:'Alerts',reports:'Reports'};
   document.getElementById('topTitle').textContent=titles[id]||id;
   if(id==='products'){renderProducts();renderPlanCmp();renderCPM();}
   if(id==='creatives'){renderCreatives();renderKOL();}
   if(id==='alerts')renderAlerts();
+  if(id==='reports')renderReports();
 }
 
 // ── LANG ─────────────────────────────────────────────────────────
@@ -1189,6 +1207,96 @@ function renderAll(){
   renderKPIs();renderProgress();renderTrend();renderAuth();
 }
 
+// ── REPORTS DATA ─────────────────────────────────────────────────
+const REPORTS = [
+  {week:'Aug W3',period:'Aug 14–20, 2026',month:'Aug',gmv:13291,roi:2.96,orders:985,spend:4485,
+   en:'Powder Found. GMV $6,158 (46%) · @rebecca.b.moor ROI 8.75 · @marvibridges new KOL · CPA $4.55 all-time low',
+   zh:'Powder Found. GMV $6,158占46% · @rebecca.b.moor ROI 8.75本月最高 · @marvibridges新达人爆发 · CPA $4.55三月新低',
+   url:'TT-US-G2G-Aug-Week3.html'},
+  {week:'Aug W2',period:'Aug 7–13, 2026',month:'Aug',gmv:5480,roi:2.10,orders:412,spend:2608,
+   en:'ROI 1.68→2.10 structural lift · Lip Serum 7-day ROI 3.38 · AMA vs VC analysis · @samjeffhop Deep Cleanse ROI 4.73',
+   zh:'ROI 1.68→2.10结构性改善 · Lip Serum 7日ROI 3.38 · AMA vs VC分析 · @samjeffhop跨品洁面ROI 4.73',
+   url:'TT-US-G2G-Aug-Week2.html'},
+  {week:'Aug W1',period:'Aug 1–6, 2026',month:'Aug',gmv:7239,roi:1.68,orders:553,spend:4315,
+   en:'Includes July monthly summary · 7-day plans: Lip Serum +44%, Powder Found. +67% · @branttakes Peeling Gel ROI 3.05',
+   zh:'含7月月度总结 · 7日计划：Lip Serum +44%，粉饼+67% · @branttakes去角质嚎ROI 3.05自然爆发',
+   url:'TT-US-G2G-Aug-Week1.html'},
+  {week:'Jul W5',period:'Jul 29–31, 2026',month:'Jul',gmv:6609,roi:1.83,orders:441,spend:3610,
+   en:'July closing 3 days · Month total GMV $67,161 · Monthly target 96.7% completion',
+   zh:'7月收尾3天 · 月总GMV $67,161 · 月目标完成96.7%',
+   url:'TT-US-G2G-July-Week5.html'},
+  {week:'Jul W4',period:'Jul 22–28, 2026',month:'Jul',gmv:18345,roi:2.01,orders:1296,spend:9126,
+   en:'ROI first broke 2.0 · Clay Stick 2pcs GMV $5,929 became #1 · @tays_archives8 ROI 3.19',
+   zh:'ROI首刄2.0 · Clay Stick 2pcs单周GMV $5,929成第一品 · @tays_archives8 ROI 3.19',
+   url:'TT-US-G2G-July-Week4.html'},
+  {week:'Jul W2',period:'Jul 8–14, 2026',month:'Jul',gmv:16290,roi:1.53,orders:1151,spend:10647,
+   en:'Skin Tint @sammycakes2020 CVR breakout · Clay Stick 2pcs first week scaling',
+   zh:'Skin Tint @sammycakes2020 CVR爆发 · Clay Stick 2pcs首周放量',
+   url:'TT-US-G2G-July-Week2.html'},
+  {week:'Jul W1',period:'Jul 1–7, 2026',month:'Jul',gmv:12229,roi:1.19,orders:848,spend:10277,
+   en:'July cold-start · ROI 1.19 baseline · 6 products launched · Clay Stick 2pcs just added',
+   zh:'7月冷启动 · ROI 1.19基线 · 6个品上线 · Clay Stick 2pcs刚加入',
+   url:'TT-US-G2G-July-Week1.html'},
+  {week:'Jun W3–W4',period:'Jun 2026',month:'Jun',gmv:null,roi:null,orders:null,spend:null,
+   en:'Early phase · Jun Week 3–4 combined report',
+   zh:'早期阶段 · 6月第3-4周合并报告',
+   url:'TT-US-G2G-Week3.html'},
+  {week:'Jun W1–W2',period:'Jun 2026',month:'Jun',gmv:null,roi:null,orders:null,spend:null,
+   en:'Account launch · First 2 weeks · Cold start benchmark',
+   zh:'账户启动 · 最初两周 · 冷启动基准',
+   url:'TT-US-G2G-Week1-2.html'},
+];
+
+function renderReports(){
+  var filt=document.getElementById('rep-filter')?document.getElementById('rep-filter').value:'all';
+  var grid=document.getElementById('reportsGrid');
+  if(!grid)return;
+  var rows=filt==='all'?REPORTS:REPORTS.filter(function(r){return r.month===filt;});
+  grid.innerHTML='';
+  var BASE='https://duke001x.github.io/US-G2G-report/';
+  rows.forEach(function(r){
+    var roiCol=r.roi?(r.roi>=3?'var(--green)':r.roi>=2?'var(--amber)':'var(--muted)'):'var(--muted2)';
+    var hl=LANG==='en'?r.en:r.zh;
+    var isLatest=r.week==='Aug W3';
+    var badge=isLatest?'<span style="font-size:9px;background:var(--rose-light);color:var(--rose);font-weight:700;padding:2px 7px;border-radius:20px;margin-left:6px">LATEST</span>':'';
+    var roiTxt=r.roi?'ROI '+r.roi.toFixed(2):'—';
+    var gmvTxt=r.gmv?('$'+Math.round(r.gmv).toLocaleString()):'—';
+    var ordTxt=r.orders?r.orders.toLocaleString():'—';
+    var spnTxt=r.spend?('$'+Math.round(r.spend).toLocaleString()):'—';
+    var card=document.createElement('div');
+    card.style.cssText='background:#fff;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden';
+    card.innerHTML=
+      '<div style="padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg);display:flex;justify-content:space-between;align-items:center">'
+        +'<div><span style="font-size:13px;font-weight:700">'+r.week+badge+'</span>'
+        +'<div style="font-size:10.5px;color:var(--muted);margin-top:2px">'+r.period+'</div></div>'
+        +'<div style="text-align:right">'
+        +'<div style="font-size:18px;font-weight:800;color:'+roiCol+'">'+roiTxt+'</div>'
+        +'<div style="font-size:10px;color:var(--muted)">GMV '+gmvTxt+'</div>'
+        +'</div></div>'
+      +'<div style="padding:10px 16px">'
+        +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px">'
+          +'<div style="background:var(--bg);border-radius:8px;padding:7px 10px;text-align:center">'
+            +'<div style="font-size:9px;color:var(--muted);text-transform:uppercase;font-weight:600">GMV</div>'
+            +'<div style="font-size:13px;font-weight:700">'+gmvTxt+'</div></div>'
+          +'<div style="background:var(--bg);border-radius:8px;padding:7px 10px;text-align:center">'
+            +'<div style="font-size:9px;color:var(--muted);text-transform:uppercase;font-weight:600">'+T('Orders','订单')+'</div>'
+            +'<div style="font-size:13px;font-weight:700">'+ordTxt+'</div></div>'
+          +'<div style="background:var(--bg);border-radius:8px;padding:7px 10px;text-align:center">'
+            +'<div style="font-size:9px;color:var(--muted);text-transform:uppercase;font-weight:600">'+T('Spend','花费')+'</div>'
+            +'<div style="font-size:13px;font-weight:700">'+spnTxt+'</div></div>'
+        +'</div>'
+        +'<div style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:10px;min-height:36px">'+hl+'</div>'
+        +'<a href="'+BASE+r.url+'" target="_blank" '
+          +'style="display:block;text-align:center;padding:8px;background:var(--rose-light);color:var(--rose);'
+          +'border-radius:8px;font-size:12px;font-weight:700;text-decoration:none">'
+          +'⇗ '+T('Open Report','查看报告')+'</a>'
+      +'</div>';
+    grid.appendChild(card);
+  });
+}
+window.renderReports = renderReports;
+
+// ── REPORTS DATA ──────────────────────────────────────────────────
 // Expose all functions globally for inline handlers
 window.toggleSidebar = toggleSidebar;
 window.gotoPage = gotoPage;
