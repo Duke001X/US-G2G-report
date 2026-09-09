@@ -95,6 +95,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 /* ── KPI CARDS ── */
 .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
 .kc{background:#fff;border-radius:var(--r);border:1px solid var(--border);padding:14px 16px;box-shadow:var(--sh);cursor:pointer;transition:box-shadow .15s,border-color .15s}
+.sortcar{display:inline-block;margin-left:3px;font-size:8px;color:var(--muted);width:8px;opacity:.55}
+th[onclick] .sortcar{color:var(--rose-mid,var(--rose))}
+th[onclick]:hover{background:rgba(255,255,255,.06)}
 .kc:hover{box-shadow:0 4px 14px rgba(0,0,0,.08)}
 .kc.kc-sel{border:2px solid var(--rose-mid);box-shadow:0 0 0 3px rgba(212,102,122,.15)}
 .kc.accent.kc-sel{box-shadow:0 0 0 3px rgba(212,102,122,.35),0 3px 16px rgba(180,70,90,.22)}
@@ -340,17 +343,20 @@ tr:hover td{background:#fdf5f6}
     <!-- Product Sales Table -->
     <div class="sec" style="margin-top:12px">
       <div class="sec-title" data-en="PRODUCT SALES — Units by Month" data-zh="产品销量 — 月度单量">PRODUCT SALES</div>
-      <div class="sec-actions" style="color:var(--muted);font-size:10px" data-en="Tap a product to see its shades" data-zh="点击产品可展开各色号">Tap a product to see its shades</div>
+      <div class="sec-actions" style="color:var(--muted);font-size:10px;flex-direction:column;align-items:flex-end;gap:2px">
+        <span id="salesProdLastDate"></span>
+        <span data-en="Tap a product to see its shades · tap a column header to sort" data-zh="点击产品可展开各色号 · 点表头可排序">Tap a product to see its shades · tap a column header to sort</span>
+      </div>
     </div>
     <div class="tbl-wrap" style="margin-bottom:16px">
       <table><thead><tr>
-        <th data-en="Product" data-zh="产品">Product</th>
-        <th data-en="Jun" data-zh="6月">Jun</th>
-        <th data-en="Jul" data-zh="7月">Jul</th>
-        <th data-en="Aug" data-zh="8月">Aug</th>
-        <th data-en="Sep" data-zh="9月">Sep</th>
-        <th data-en="MoM" data-zh="环比">MoM</th>
-        <th data-en="Total" data-zh="总量">Total</th>
+        <th data-en="Product" data-zh="产品" onclick="sortProdSales('prod_en')" style="cursor:pointer">Product<span id="sortcar-prod_en" class="sortcar"></span></th>
+        <th data-en="Jun" data-zh="6月" onclick="sortProdSales('jun')" style="cursor:pointer">Jun<span id="sortcar-jun" class="sortcar"></span></th>
+        <th data-en="Jul" data-zh="7月" onclick="sortProdSales('jul')" style="cursor:pointer">Jul<span id="sortcar-jul" class="sortcar"></span></th>
+        <th data-en="Aug" data-zh="8月" onclick="sortProdSales('aug')" style="cursor:pointer">Aug<span id="sortcar-aug" class="sortcar"></span></th>
+        <th data-en="Sep" data-zh="9月" onclick="sortProdSales('sep')" style="cursor:pointer">Sep<span id="sortcar-sep" class="sortcar"></span></th>
+        <th data-en="MoM" data-zh="环比" onclick="sortProdSales('mom_pct')" style="cursor:pointer">MoM<span id="sortcar-mom_pct" class="sortcar"></span></th>
+        <th data-en="Total" data-zh="总量" onclick="sortProdSales('total')" style="cursor:pointer">Total<span id="sortcar-total" class="sortcar"></span></th>
       </tr></thead>
       <tbody id="salesProdTbody"></tbody>
     </table></div>
@@ -1970,7 +1976,7 @@ function renderShadeTable(){
     var momC=mom===null||mom===undefined?'':mom>10?'color:#16a34a;font-weight:700':mom<-10?'color:#dc2626;font-weight:700':'';
     var bar=Math.round((r.aug||0)/peak*100);
     return '<tr>'+
-      '<td style="font-weight:600">'+(r.name_full||r.name_en)+'<br><span style="font-size:10px;color:var(--muted)">'+r.sku+(r.prod_en?' · '+r.prod_en:'')+'</span></td>'+
+      '<td style="font-weight:600">'+shadeLabel(r)+'<br><span style="font-size:10px;color:var(--muted)">'+r.sku+(r.prod_en?' · '+r.prod_en:'')+'</span></td>'+
       '<td style="color:var(--muted)">'+r.jun+'</td>'+
       '<td>'+r.jul+'</td>'+
       '<td><div style="display:flex;align-items:center;gap:6px">'+
@@ -1993,6 +1999,21 @@ function toggleProdShades(rid){
   subs.forEach(function(el){el.style.display=showing?'none':'table-row';});
   if(car)car.style.transform=showing?'rotate(0deg)':'rotate(90deg)';
 }
+var _prodSalesSort={key:'total',dir:-1};
+function sortProdSales(key){
+  if(_prodSalesSort.key===key){_prodSalesSort.dir*=-1;}
+  else{_prodSalesSort.key=key;_prodSalesSort.dir=(key==='prod_en')?1:-1;}
+  renderSales();
+}
+function shadeLabel(sh){
+  if(LANG!=='en')return sh.name_full||sh.name_cn;
+  var base=sh.prod_en||sh.name_en||sh.name_cn;
+  var siblingCount=(DB.shade_sales||[]).filter(function(x){return x.prod_en===sh.prod_en;}).length;
+  if(siblingCount<=1)return base;
+  var matches=String(sh.name_full||'').match(/(?<!\d)(\d{2})(?!\d)/g);
+  var code=matches&&matches.length?matches[matches.length-1]:null;
+  return code?base+' · Shade '+code:base;
+}
 function renderSales(){
   if(!DB.sales_data)return;
   var sd=DB.sales_data;
@@ -2000,6 +2021,8 @@ function renderSales(){
   // Update last date label
   var el=document.getElementById('salesLastDate');
   if(el)el.textContent='Sales data through '+sd.last_date;
+  var el2=document.getElementById('salesProdLastDate');
+  if(el2)el2.textContent=T('Data through ','数据截至 ')+sd.last_date+T(' (Sep is partial)','（9月数据未完整）');
 
   // ── Populate product selectors once ─────────────────────────
   var salesSel=document.getElementById('salesProdSel');
@@ -2013,6 +2036,18 @@ function renderSales(){
   var tbody=document.getElementById('salesProdTbody');
   if(tbody){
     var rows=sd.prod_summary.filter(function(p){return p.total>0;});
+    var sk=_prodSalesSort.key, sdir=_prodSalesSort.dir;
+    rows=rows.slice().sort(function(a,b){
+      var av=a[sk],bv=b[sk];
+      if(sk==='prod_en')return sdir*String(av).localeCompare(String(bv));
+      av=(av===null||av===undefined)?-Infinity:av; bv=(bv===null||bv===undefined)?-Infinity:bv;
+      return sdir*(av-bv);
+    });
+    // update sort caret indicators
+    ['prod_en','jun','jul','aug','sep','mom_pct','total'].forEach(function(k){
+      var elc=document.getElementById('sortcar-'+k);
+      if(elc)elc.textContent=(k===_prodSalesSort.key)?(_prodSalesSort.dir>0?'▲':'▼'):'↕';
+    });
     var augPeak=Math.max.apply(null,rows.map(function(p){return p.aug||0;}))||1;
     tbody.innerHTML=rows.map(function(p,idx){
       var mom=p.mom_pct;
@@ -2047,7 +2082,7 @@ function renderSales(){
         var sbar=Math.round((sh.aug||0)/shadePeak*100);
         var ssep=sh.sep>0?sh.sep:'<span style="color:var(--muted)">–</span>';
         return '<tr class="'+rid+'-sub" style="display:none;background:#faf7f8">'+
-          '<td style="padding-left:26px;font-size:11px;color:var(--text)">'+(sh.name_full||sh.name_en)+
+          '<td style="padding-left:26px;font-size:11px;color:var(--text)">'+shadeLabel(sh)+
             '<br><span style="font-size:9px;color:var(--muted)">'+sh.sku+'</span></td>'+
           '<td style="color:var(--muted);font-size:11px">'+sh.jun+'</td>'+
           '<td style="font-size:11px">'+sh.jul+'</td>'+
