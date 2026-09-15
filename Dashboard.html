@@ -175,8 +175,9 @@ tr:hover td{background:#fdf5f6}
 .vid-title{font-size:10px;color:var(--muted);font-style:italic;margin-top:1px;max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tt-link{font-size:9.5px;color:var(--blue);text-decoration:none;background:var(--blue-bg);border-radius:4px;padding:1px 5px;margin-top:2px;display:inline-block}
 .warn-row td{background:#fff7f7}
-.copy-id{font-family:monospace;font-size:9.5px;color:var(--blue);background:var(--blue-bg);padding:1px 5px;border-radius:4px;cursor:pointer;border:none}
+.copy-id{font-family:monospace;font-size:9.5px;color:var(--blue);background:var(--blue-bg);padding:2px 6px;border-radius:4px;cursor:pointer;border:1px solid rgba(68,112,184,.25);user-select:all}
 .copy-id:hover{opacity:.75}
+.copy-id.copied{background:var(--green-bg);color:#1a6848;border-color:rgba(26,104,72,.3)}
 
 /* ── CPM TABLE ── */
 .cpm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
@@ -1744,8 +1745,8 @@ function renderCreatives(){
       +'<a href="'+url+'" target="_blank" class="tt-link">↗ TikTok</a>';
     const mkTd=(v,cls)=>{const t=document.createElement('td');t.innerHTML=v;if(cls)t.className=cls;return t;};
     const rcBtn='<span class="roi-chip '+rc+'">'+fmtR(r.roi)+'</span>';
-    const vidBtn='<button class="copy-id" onclick="copyText(\'' + vid + '\')" title="Copy">' + vid + '</button>';
-    const pidBtn=pid?'<button class="copy-id" onclick="copyText(\'' + pid + '\')" title="Copy">' + pid + '</button>':'—';
+    const vidBtn='<button class="copy-id" onclick="copyText(\'' + vid + '\',this)" title="Copy">' + vid + '</button>';
+    const pidBtn=pid?'<button class="copy-id" onclick="copyText(\'' + pid + '\',this)" title="Copy">' + pid + '</button>':'—';
     [c1,c2,
       mkTd((+r.imp||0).toLocaleString()),mkTd(fmt$(r.rev)),mkTd(rcBtn),
       mkTd(r.orders),mkTd((+r.cvr_pct||0).toFixed(1)+'%'),mkTd((+r.v2s_pct||0).toFixed(1)+'%'),
@@ -1852,8 +1853,8 @@ function renderAlerts(){
         <div class="al-name"><span class="pill-sm p-${r.auth_short==='VC'?'vc':'ama'}">${r.auth_short}</span> <span class="pill-sm p-prod">${r.product_en}</span> @${r.un}</div>
         <div class="al-desc">${T('Imp','曝光')} ${(+r.imp||0).toLocaleString()} · ${T('Spend','花费')} ${fmt$(r.cost)} · ${r.orders} ${T('orders','单')} · CVR ${(+r.cvr_pct||0).toFixed(1)}%</div>
         <div class="al-ids">
-          <button class="copy-id" onclick="copyText('${r['Video ID']}')" title="${T('Copy Video ID','复制视频ID')}">📋 Video: ${r['Video ID']}</button>
-          ${r.prod_id?`<button class="copy-id" onclick="copyText('${r.prod_id}')" title="${T('Copy Product ID','复制商品ID')}">📋 Product: ${r.prod_id}</button>`:''}
+          <button class="copy-id" onclick="copyText('${r['Video ID']}',this)" title="${T('Copy Video ID','复制视频ID')}">📋 Video: ${r['Video ID']}</button>
+          ${r.prod_id?`<button class="copy-id" onclick="copyText('${r.prod_id}',this)" title="${T('Copy Product ID','复制商品ID')}">📋 Product: ${r.prod_id}</button>`:''}
         </div>
       </div>
       <div style="text-align:right;min-width:72px">
@@ -1872,7 +1873,34 @@ function renderAlerts(){
 }
 
 // ── UTILS ────────────────────────────────────────────────────────
-function copyText(t){navigator.clipboard?.writeText(t).then(()=>console.log('copied'));}
+function copyText(t,btn){
+  function ok(){
+    if(btn){
+      var orig=btn.getAttribute('data-orig')||btn.textContent;
+      btn.setAttribute('data-orig',orig);
+      btn.textContent='✓ '+T('Copied','已复制');
+      btn.classList.add('copied');
+      setTimeout(function(){btn.textContent=orig;btn.classList.remove('copied');},1200);
+    }
+  }
+  function fallback(){
+    try{
+      var ta=document.createElement('textarea');
+      ta.value=t;
+      ta.style.position='fixed';ta.style.top='-1000px';ta.style.left='-1000px';
+      document.body.appendChild(ta);
+      ta.focus();ta.select();
+      var success=document.execCommand('copy');
+      document.body.removeChild(ta);
+      if(success)ok();
+    }catch(e){}
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext){
+    navigator.clipboard.writeText(t).then(ok).catch(fallback);
+  } else {
+    fallback();
+  }
+}
 function handleUpload(input){
   const file=input.files[0];if(!file)return;
   const label=document.querySelector('.upload-lbl');
